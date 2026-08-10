@@ -22,7 +22,7 @@
 - Motion 200–500ms with `--ease-standard` / `--ease-entrance`. Nothing animates continuously. No bounce, spring or parallax.
 - Icons: Lucide, functional only, from `search, heart, shopping-bag, menu, x, arrow-right, plus, minus, chevron-down, user-round`. No emoji.
 - Voice: quiet. No exclamation marks, no urgency, no discount language, no superlatives.
-- Section numbering appears **only** on the four commerce sections: `01 —` вітрина, `02 —` колекції, `03 —` добірка, `04 —` приводи.
+- **Section** numbering appears only on the four commerce sections, with exactly these strings: `01 —` (вітрина, Task 5), `02 —` (колекції, Task 7), `03 —` (добірка, Task 9), `04 —` (підбір, Task 10). This constrains *section* indices only — the `01/02/03` labels on the three principles inside Task 6 are a list, not section numbers, and are required by the spec.
 - Every new section component starts with a `// PROTOTYPE —` comment naming what it is and citing the spec section, matching the existing house style.
 
 ---
