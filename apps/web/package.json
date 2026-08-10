@@ -1,0 +1,43 @@
+{
+  "name": "web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "check-types": "nuxt typecheck",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@marmus-flowers/api": "workspace:*",
+    "@marmus-flowers/auth": "workspace:*",
+    "@marmus-flowers/env": "workspace:*",
+    "@nuxt/ui": "^4.10.0",
+    "@orpc/client": "catalog:",
+    "@orpc/openapi": "catalog:",
+    "@orpc/server": "catalog:",
+    "@orpc/tanstack-query": "^1.14.12",
+    "@orpc/zod": "catalog:",
+    "@tanstack/vue-query": "^5.101.4",
+    "@vueuse/core": "^14.4.0",
+    "@vueuse/nuxt": "^14.4.0",
+    "better-auth": "catalog:",
+    "dotenv": "catalog:",
+    "evlog": "^2.22.4",
+    "motion-v": "^2.3.0",
+    "nuxt": "^4.5.1",
+    "vue": "^3.5.40",
+    "vue-router": "^5.2.0",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@iconify-json/lucide": "^1.2.120",
+    "@marmus-flowers/config": "workspace:*",
+    "@tanstack/vue-query-devtools": "^6.1.38",
+    "tailwindcss": "^4.3.3",
+    "typescript": "catalog:",
+    "vue-tsc": "^3.3.8"
+  }
+}

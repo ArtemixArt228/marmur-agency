@@ -1,0 +1,190 @@
+/*
+ * Верстальні утиліти дизайн-системи Marmúr.
+ * Єдиний файл у цій теці, якого немає в Claude Design: він переносить
+ * layout-правила з ui_kits/website (§13–§31) у класи, щоб сторінки не
+ * повторювали ті самі inline-стилі.
+ */
+
+/* Контейнери й ритм секцій — §11, §12 */
+.ds-container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter-lg);
+}
+
+.ds-container-narrow {
+  width: 100%;
+  max-width: var(--container-narrow);
+  margin-inline: auto;
+  padding-inline: var(--gutter-lg);
+}
+
+.ds-section {
+  padding-block: var(--space-section);
+}
+
+.ds-section-lg {
+  padding-block: var(--space-section-lg);
+}
+
+.ds-section-dark {
+  background: var(--color-background-dark);
+  color: var(--color-foreground-inverse);
+}
+
+.ds-bleed {
+  width: 100%;
+}
+
+/* Типографічні ролі — §7, §8 */
+.ds-display {
+  font: var(--type-display);
+  letter-spacing: var(--tracking-display);
+}
+
+.ds-h1 {
+  font: var(--type-h1);
+  letter-spacing: var(--tracking-heading);
+}
+
+.ds-h2 {
+  font: var(--type-h2);
+  letter-spacing: var(--tracking-heading);
+}
+
+.ds-h3 {
+  font: var(--type-h3);
+  letter-spacing: var(--tracking-heading);
+}
+
+.ds-body {
+  font: var(--type-body);
+}
+
+.ds-body-lg {
+  font: var(--type-body);
+  font-size: var(--text-body-lg);
+}
+
+.ds-small {
+  font: var(--type-small);
+}
+
+/* Малий сансовий шар: навігація, кнопки, ейбрау, теги, фільтри — §9 */
+.ds-meta {
+  font: var(--type-meta);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-meta);
+}
+
+.ds-muted {
+  color: var(--color-foreground-muted);
+}
+
+.ds-subtle {
+  color: var(--color-foreground-subtle);
+}
+
+.ds-inverse {
+  color: var(--color-foreground-inverse);
+}
+
+/* Ціни — табличні цифри, розділені тисячі — §10 */
+.ds-price {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Сітки каталогу — §19, §20 */
+.ds-grid {
+  display: grid;
+  gap: var(--grid-gap) var(--gutter);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 768px) {
+  .ds-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .ds-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.ds-grid-row {
+  row-gap: var(--space-12);
+}
+
+/* Нерівні редакційні сітки — §20: сітка ніколи не буває рівною */
+.ds-split {
+  display: grid;
+  gap: var(--space-16);
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .ds-split {
+    grid-template-columns: 1.6fr 1fr;
+  }
+
+  .ds-split-even {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ds-split-aside {
+    grid-template-columns: 1fr 24rem;
+  }
+}
+
+/* Формова панель — єдина поверхня з рамкою в системі — §31 */
+.ds-panel {
+  background: var(--color-surface);
+  border: var(--border-hairline);
+  border-radius: var(--radius-sm);
+  padding: var(--space-8);
+}
+
+.ds-rule {
+  border: 0;
+  border-top: var(--border-hairline);
+  margin: 0;
+}
+
+.ds-rule-inverse {
+  border: 0;
+  border-top: var(--border-inverse);
+  margin: 0;
+}
+
+/* Поява при скролі — §25: тільки прозорість і мʼякий зсув, без пружин */
+.ds-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity var(--duration-slow) var(--ease-entrance),
+    transform var(--duration-slow) var(--ease-entrance);
+}
+
+.ds-reveal[data-revealed="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Без JS показувати нічого — гірше, ніж показати без появи */
+@media (scripting: none) {
+  .ds-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

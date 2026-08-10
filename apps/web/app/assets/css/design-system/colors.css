@@ -1,0 +1,48 @@
+/*
+ * Імпортовано з Claude Design → «Marmúr — Design System».
+ * Не редагувати вручну: значення мають лишатись дзеркалом дизайн-системи.
+ */
+:root {
+  /* Base palette — direction doc §4 */
+  --obsidian: #171513;
+  --ivory: #f5f1ea;
+  --white: #ffffff;
+  --espresso: #3a2923;
+  --chocolate: #261b17;
+  --taupe: #a39487;
+  --sand: #d8cec2;
+  --clay: #6f6259;
+
+  /* Semantic — direction doc §5 */
+  --color-background: var(--ivory);
+  --color-background-alt: var(--white);
+  --color-background-dark: var(--chocolate);
+  --color-surface: var(--white);
+  --color-surface-sunken: #ede7de;
+
+  --color-foreground: var(--obsidian);
+  --color-foreground-muted: var(--clay);
+  --color-foreground-subtle: var(--taupe);
+  --color-foreground-inverse: var(--ivory);
+
+  --color-brand: var(--espresso);
+  --color-brand-dark: var(--chocolate);
+
+  --color-neutral: var(--taupe);
+  --color-border: var(--sand);
+  --color-border-strong: var(--taupe);
+  --color-border-inverse: rgb(245 241 234 / 0.22);
+
+  --color-black: var(--obsidian);
+  --color-white: var(--white);
+
+  /* Interaction */
+  --color-focus: var(--espresso);
+  --color-overlay: rgb(23 21 19 / 0.55);
+  --color-scrim: linear-gradient(
+    180deg,
+    rgb(23 21 19 / 0.42) 0%,
+    rgb(23 21 19 / 0) 46%,
+    rgb(23 21 19 / 0.5) 100%
+  );
+}

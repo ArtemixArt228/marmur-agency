@@ -1,0 +1,25 @@
+/* Імпортовано з Claude Design → «Marmúr — Design System». */
+:root {
+  --container-max: 1440px;
+  --container-narrow: 880px;
+  --gutter: 32px;
+  --gutter-lg: 64px;
+  --grid-columns: 12;
+  --grid-gap: 24px;
+
+  --header-height: 76px;
+  --header-height-scrolled: 60px;
+
+  --bp-tablet: 768px;
+  --bp-desktop: 1024px;
+  --bp-wide: 1440px;
+
+  --touch-target: 44px;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --gutter: 20px;
+    --gutter-lg: 20px;
+  }
+}

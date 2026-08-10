@@ -1,0 +1,24 @@
+/* Імпортовано з Claude Design → «Marmúr — Design System». */
+:root {
+  /* Direction doc §25 — calm, 200–500ms, no bounce or spring */
+  --duration-fast: 200ms;
+  --duration: 320ms;
+  --duration-slow: 500ms;
+  --ease-standard: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-entrance: cubic-bezier(0.16, 0.84, 0.44, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 0.68, 0.06);
+
+  --transition-color:
+    color var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
+  --transition-image:
+    transform var(--duration-slow) var(--ease-standard),
+    opacity var(--duration) var(--ease-standard);
+
+  /* Hover / press — §26 */
+  --hover-image-scale: 1.02;
+  --hover-opacity: 0.92;
+  --press-opacity: 0.84;
+  --press-scale: 0.995;
+}

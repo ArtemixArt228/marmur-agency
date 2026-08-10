@@ -1,0 +1,28 @@
+{
+  "name": "@marmus-flowers/api",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {},
+  "dependencies": {
+    "@marmus-flowers/auth": "workspace:*",
+    "@marmus-flowers/db": "workspace:*",
+    "@marmus-flowers/env": "workspace:*",
+    "@orpc/client": "catalog:",
+    "@orpc/openapi": "catalog:",
+    "@orpc/server": "catalog:",
+    "@orpc/zod": "catalog:",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@marmus-flowers/config": "workspace:*",
+    "typescript": "catalog:"
+  }
+}

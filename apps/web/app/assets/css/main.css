@@ -1,0 +1,82 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+/*
+ * Дизайн-система Marmúr — імпорт із Claude Design.
+ * Токени лежать у ./design-system і є дзеркалом проєкту дизайн-системи;
+ * нижче — лише міст між ними та Tailwind/Nuxt UI. Заміна айдентики =
+ * заміна токенів, без правок компонентів.
+ * Порядок важливий: DS іде після Tailwind, щоб його :root перекривав тему.
+ */
+@import "./design-system/colors.css";
+@import "./design-system/typography.css";
+@import "./design-system/spacing.css";
+@import "./design-system/layout.css";
+@import "./design-system/shape.css";
+@import "./design-system/motion.css";
+@import "./design-system/base.css";
+@import "./design-system/utilities.css";
+
+@theme static {
+  --font-sans: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+
+  /*
+   * Рампи для Nuxt UI. Опорні точки — сім кольорів дизайн-системи:
+   * espresso 800 / obsidian 950, sand 300 / taupe 500 / clay 700.
+   */
+  --color-espresso-50: #f7f3ef;
+  --color-espresso-100: #ece3da;
+  --color-espresso-200: #d8c8b9;
+  --color-espresso-300: #bda791;
+  --color-espresso-400: #9d8168;
+  --color-espresso-500: #7f6450;
+  --color-espresso-600: #654e3e;
+  --color-espresso-700: #4e3b2f;
+  --color-espresso-800: #3a2923;
+  --color-espresso-900: #2c1f1a;
+  --color-espresso-950: #171513;
+
+  --color-sand-50: #faf8f4;
+  --color-sand-100: #f5f1ea;
+  --color-sand-200: #ede7de;
+  --color-sand-300: #d8cec2;
+  --color-sand-400: #bfb2a3;
+  --color-sand-500: #a39487;
+  --color-sand-600: #85786c;
+  --color-sand-700: #6f6259;
+  --color-sand-800: #4a413a;
+  --color-sand-900: #261b17;
+  --color-sand-950: #171513;
+}
+
+/*
+ * Семантика Nuxt UI поверх токенів дизайн-системи: усе, що лишилось на
+ * U-компонентах (модалка входу, слайдовер кошика, тости), успадковує
+ * ті самі кольори, радіуси й контейнер, що й Ds-компоненти.
+ */
+:root {
+  --ui-radius: var(--radius-sm);
+  --ui-container: var(--container-max);
+
+  --ui-bg: var(--color-background);
+  --ui-bg-muted: var(--color-surface-sunken);
+  --ui-bg-elevated: var(--color-surface-sunken);
+  --ui-bg-accented: var(--sand);
+  --ui-bg-inverted: var(--color-background-dark);
+
+  --ui-text-dimmed: var(--color-foreground-subtle);
+  --ui-text-muted: var(--color-foreground-muted);
+  --ui-text-toned: var(--color-foreground-muted);
+  --ui-text: var(--color-foreground);
+  --ui-text-highlighted: var(--color-foreground);
+  --ui-text-inverted: var(--color-foreground-inverse);
+
+  --ui-border: var(--color-border);
+  --ui-border-muted: var(--color-border);
+  --ui-border-accented: var(--color-border-strong);
+  --ui-border-inverted: var(--color-foreground);
+
+  --ui-primary: var(--color-brand);
+  --ui-secondary: var(--color-foreground-muted);
+}

@@ -1,0 +1,24 @@
+{
+  "name": "@marmus-flowers/auth",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {},
+  "dependencies": {
+    "@marmus-flowers/db": "workspace:*",
+    "@marmus-flowers/env": "workspace:*",
+    "better-auth": "catalog:",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@marmus-flowers/config": "workspace:*",
+    "typescript": "catalog:"
+  }
+}

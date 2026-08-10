@@ -1,0 +1,3 @@
+{
+  "extends": "@marmus-flowers/config/tsconfig.base.json"
+}

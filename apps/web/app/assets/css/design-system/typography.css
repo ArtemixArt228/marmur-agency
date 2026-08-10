@@ -1,0 +1,40 @@
+/* Імпортовано з Claude Design → «Marmúr — Design System». */
+:root {
+  --font-serif-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  --text-display: clamp(42px, 6.2vw, 96px);
+  --text-h1: clamp(36px, 4.6vw, 64px);
+  --text-h2: clamp(30px, 3.4vw, 48px);
+  --text-h3: clamp(24px, 2.2vw, 32px);
+  --text-body-lg: 18px;
+  --text-body: 17px;
+  --text-small: 14px;
+  --text-meta: 12px;
+
+  --leading-display: 1.02;
+  --leading-heading: 1.1;
+  --leading-body: 1.6;
+  --leading-tight: 1.35;
+
+  --tracking-display: -0.025em;
+  --tracking-heading: -0.015em;
+  --tracking-body: 0;
+  --tracking-meta: 0.14em;
+  --tracking-wordmark: 0.22em;
+
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+
+  /* Composed roles */
+  --type-display: var(--weight-light) var(--text-display) / var(--leading-display)
+    var(--font-serif-display);
+  --type-h1: var(--weight-light) var(--text-h1) / var(--leading-heading) var(--font-serif-display);
+  --type-h2: var(--weight-light) var(--text-h2) / var(--leading-heading) var(--font-serif-display);
+  --type-h3: var(--weight-regular) var(--text-h3) / var(--leading-tight) var(--font-serif-display);
+  --type-body: var(--weight-regular) var(--text-body) / var(--leading-body) var(--font-sans);
+  --type-small: var(--weight-regular) var(--text-small) / 1.5 var(--font-sans);
+  --type-meta: var(--weight-medium) var(--text-meta) / 1.4 var(--font-sans);
+}

@@ -1,0 +1,25 @@
+/* Імпортовано з Claude Design → «Marmúr — Design System». */
+:root {
+  /* Direction doc §24 — 0–6px only, never rounded-full on UI */
+  --radius-none: 0px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+
+  --border-width: 1px;
+  --border-hairline: 1px solid var(--color-border);
+  --border-strong: 1px solid var(--color-border-strong);
+  --border-inverse: 1px solid var(--color-border-inverse);
+
+  /* Shadows are near-absent by design (§34). Reserved for lifted overlays only. */
+  --shadow-none: none;
+  --shadow-overlay: 0 24px 60px rgb(23 21 19 / 0.14);
+  --shadow-drawer: -18px 0 60px rgb(23 21 19 / 0.12);
+
+  /* Image aspect ratios used across the catalogue */
+  --ratio-portrait: 3/4;
+  --ratio-editorial: 4/5;
+  --ratio-square: 1/1;
+  --ratio-wide: 16/9;
+  --ratio-cinema: 21/9;
+}
