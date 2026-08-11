@@ -253,3 +253,34 @@ export const protoDelivery = {
   phone: "+380 67 000 00 00",
   instagram: "@marmur.flowers",
 };
+
+/**
+ * Смуги бюджету. Живуть тут, а не всередині вітрини, бо той самий перелік
+ * читає фільтр каталогу — і ключі мусять збігатися з `?budget=` в URL.
+ */
+export interface ProtoBudget {
+  key: string;
+  label: string;
+  test: (price: number) => boolean;
+}
+
+export const protoBudgets: ProtoBudget[] = [
+  { key: "all", label: "Усі", test: () => true },
+  { key: "lt1000", label: "до 1 000 ₴", test: (p) => p < 1000 },
+  { key: "1000-1500", label: "1 000–1 500 ₴", test: (p) => p >= 1000 && p <= 1500 },
+  { key: "gt1500", label: "понад 1 500 ₴", test: (p) => p > 1500 },
+];
+
+/**
+ * Приводи для секції «Розкажіть, для кого» на головній.
+ * Кожен веде на подання каталогу, яке реально працює: вигаданих фільтрів
+ * тут немає, інакше відвідувач приземлявся б на нефільтрований каталог.
+ */
+export const protoOccasions: { label: string; to: string }[] = [
+  { label: "для неї", to: "/prototype/catalog?category=mix" },
+  { label: "для нього", to: "/prototype/catalog?category=mono" },
+  { label: "на день народження", to: "/prototype/catalog?category=baskets" },
+  { label: "просто так", to: "/prototype/catalog?budget=lt1000" },
+  { label: "для особливого вечора", to: "/prototype/catalog?budget=gt1500" },
+  { label: "коли не знаєш, що сказати", to: "/prototype/catalog" },
+];
