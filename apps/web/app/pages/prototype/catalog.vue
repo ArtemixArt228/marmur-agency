@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // PROTOTYPE — каталог: товарні категорії + сервісні розділи (за заявкою).
 import {
+  protoBudgets,
   protoCategoryLabels,
   protoGiftSubcategories,
   protoProducts,
@@ -36,15 +37,36 @@ const active = computed(() => {
 
 const activeService = computed(() => protoServices.find((s) => s.id === active.value));
 
+const activeBudget = computed(() => {
+  const b = String(route.query.budget ?? "all");
+  return protoBudgets.some((x) => x.key === b) ? b : "all";
+});
+
+/**
+ * Обидва сетери складають query цілком: інакше зміна категорії стирала б
+ * активний бюджет, і навпаки. Значення «all» просто не потрапляє в URL.
+ */
 function setCategory(key: string) {
-  router.replace({ query: key === "all" ? {} : { category: key } });
+  const query: Record<string, string> = {};
+  if (key !== "all") query.category = key;
+  if (activeBudget.value !== "all") query.budget = activeBudget.value;
+  router.replace({ query });
 }
 
-const visible = computed(() =>
-  protoProducts
+function setBudget(key: string) {
+  const query: Record<string, string> = {};
+  if (active.value !== "all") query.category = active.value;
+  if (key !== "all") query.budget = key;
+  router.replace({ query });
+}
+
+const visible = computed(() => {
+  const budget = protoBudgets.find((b) => b.key === activeBudget.value) ?? protoBudgets[0]!;
+  return protoProducts
     .filter((p) => active.value === "all" || p.category === active.value)
-    .sort((a, b) => Number(b.available) - Number(a.available)),
-);
+    .filter((p) => budget.test(p.price))
+    .sort((a, b) => Number(b.available) - Number(a.available));
+});
 </script>
 
 <template>
@@ -65,6 +87,14 @@ const visible = computed(() =>
       :model-value="activeService ? '' : active"
       :count="activeService ? undefined : `${visible.length} позицій`"
       @update:model-value="setCategory"
+    />
+
+    <DsFilterBar
+      v-if="!activeService"
+      class="catalog__budgets"
+      :filters="protoBudgets.map((b) => ({ key: b.key, label: b.label }))"
+      :model-value="activeBudget"
+      @update:model-value="setBudget"
     />
 
     <nav class="catalog__services">
@@ -106,6 +136,10 @@ const visible = computed(() =>
 <style scoped>
 .catalog__filters {
   margin-top: var(--space-16);
+}
+
+.catalog__budgets {
+  margin-top: var(--space-4);
 }
 
 .catalog__services {
