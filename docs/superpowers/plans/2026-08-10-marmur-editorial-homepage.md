@@ -12,7 +12,9 @@
 
 ## Global Constraints
 
-- **No test runner exists in this repo.** Verification is `bun run check` (lint + `nuxt typecheck`) plus browser inspection. Do not invent or install a test framework.
+- **No test runner exists in this repo.** Verification is `bun run check-types && bunx vp check apps/web` (typecheck + lint, scoped to the app) plus browser inspection. Do not invent or install a test framework.
+  - Expected output: typecheck completes with no errors, and lint reports **`Found 0 errors and 2 warnings`**. Those two warnings are pre-existing in `apps/web/app/middleware/auth.ts` (unused `from` parameter) and are not yours to fix. Any *error*, or a third warning, is a real regression.
+  - Do **not** run the repo-wide `bun run check`: it fails on 138 pre-existing files, almost all vendored under `.agents/skills/`, and was already failing before this branch. It cannot tell you whether your change is clean.
 - Dev server: `bun run dev:web` → `http://localhost:3001/prototype` (port is pinned in `nuxt.config.ts`).
 - **All user-facing copy is Ukrainian.** Copy strings in this plan are final — paste them exactly, including the apostrophe character `ʼ` (U+02BC) in «памʼяті».
 - **No new `Ds*` components.** Compose from: `DsButton`, `DsIcon`, `DsIconButton`, `DsTextLink`, `DsTag`, `DsInput`, `DsSelect`, `DsQuantityStepper`, `DsOptionSwatch`, `DsProductCard`, `DsCartLine`, `DsFilterBar`, `DsEditorialImage`, `DsSectionHeading`, `DsStatementBlock`, `DsWordmark`, `DsHeader`, `DsFooter`, `DsMenuOverlay`, `DsReveal`.
@@ -97,7 +99,7 @@ export const protoOccasions: { label: string; to: string }[] = [
 
 - [ ] **Step 4: Verify the project still checks**
 
-Run: `bun run check`
+Run: `bun run check-types && bunx vp check apps/web`
 Expected: PASS, no lint or type errors.
 
 - [ ] **Step 5: Commit**
@@ -236,7 +238,7 @@ and in the template:
 
 - [ ] **Step 7: Verify types and lint**
 
-Run: `bun run check`
+Run: `bun run check-types && bunx vp check apps/web`
 Expected: PASS.
 
 - [ ] **Step 8: Verify all six occasion destinations by hand**
@@ -398,7 +400,7 @@ Strip the hero to wordmark, one line, one action. The 18:00 cutoff and free-deli
 
 - [ ] **Step 2: Verify**
 
-Run: `bun run check` — expected PASS.
+Run: `bun run check-types && bunx vp check apps/web` — expected PASS.
 
 In the browser at `/prototype`, confirm: the hero fills the viewport; the wordmark renders as `MARMÚR FLOWERS` in small caps; the statement breaks after «залишаються»; there is exactly one button; no delivery text remains in the hero.
 
@@ -587,7 +589,7 @@ In `apps/web/app/pages/prototype/index.vue`, insert directly after `<ProtoHomeHe
 
 - [ ] **Step 3: Verify**
 
-Run: `bun run check` — expected PASS.
+Run: `bun run check-types && bunx vp check apps/web` — expected PASS.
 
 At 1440px confirm: row 1 is a tall image left with two squares stacked right; row 2 is a narrow portrait left with a wide image right, bottom edges aligned; captions sit bottom-left over a scrim and are legible. At 375px confirm all five frames stack in one column in source order.
 
@@ -706,7 +708,7 @@ Add to the `<style scoped>` block in the same file:
 
 - [ ] **Step 6: Verify**
 
-Run: `bun run check` — expected PASS.
+Run: `bun run check-types && bunx vp check apps/web` — expected PASS.
 
 In the browser confirm: at 1440px there are three columns and at most six cards; frames are 4:5, noticeably larger than before; the heading reads «Квіти сьогодні»; budget filters still work and can empty the grid; «Увесь каталог» sits under a hairline rule.
 
@@ -818,7 +820,7 @@ Then delete the now-unused `.home-school` and `.home-actions` rules from the pag
 
 - [ ] **Step 3: Verify**
 
-Run: `bun run check` — expected PASS.
+Run: `bun run check-types && bunx vp check apps/web` — expected PASS.
 
 Confirm in the browser: image left, text right at 1440px; principles separated by hairline rules; no buttons anywhere in the section; single column at 375px. Confirm no dead CSS remains by searching the page file for `home-school` and `home-actions` — both should return nothing.
 
@@ -1026,7 +1028,7 @@ Also delete these now-unused rules from the page's `<style scoped>`: `.home-cate
 
 - [ ] **Step 3: Verify**
 
-Run: `bun run check` — expected PASS.
+Run: `bun run check-types && bunx vp check apps/web` — expected PASS.
 
 Confirm: the lead category is full-width and 16:9 with an `h2` name; the other three sit in unequal columns with different frame proportions and `h3` names; counts match the catalog; every tile and service link navigates correctly.
 
@@ -1143,7 +1145,7 @@ It occupies the same slot in the rhythm: the dark beat between two light section
 
 - [ ] **Step 3: Verify**
 
-Run: `bun run check` — expected PASS.
+Run: `bun run check-types && bunx vp check apps/web` — expected PASS.
 
 Confirm: the section spans the full window width with no container gutters visible at the edges; the statement is centred and breaks after «бути»; `MARMÚR / 2026` renders in small caps beneath it; text stays legible over the photograph at 375px.
 
@@ -1272,7 +1274,7 @@ In `apps/web/app/pages/prototype/index.vue`, add after `<ProtoHomeSignature />`:
 
 - [ ] **Step 3: Verify**
 
-Run: `bun run check` — expected PASS.
+Run: `bun run check-types && bunx vp check apps/web` — expected PASS.
 
 Confirm: four product cards in a 2×2 block on the left, editorial frame spanning both rows on the right at 1440px; the quote sits under the frame and breaks after «тих,» and «шукає»; `carmen` shows its «на завтра» note since it is unavailable; prices render with tabular figures. At 375px everything stacks.
 
@@ -1405,7 +1407,7 @@ In `apps/web/app/pages/prototype/index.vue`, add after `<ProtoHomeEditorialMix /
 
 - [ ] **Step 3: Verify**
 
-Run: `bun run check` — expected PASS.
+Run: `bun run check-types && bunx vp check apps/web` — expected PASS.
 
 Click all six links from the homepage and confirm each lands on a filtered catalog matching the table in Task 2 Step 8. Confirm two columns at ≥768px, one below; arrows shift 4px on hover and stay still under `prefers-reduced-motion: reduce`.
 
@@ -1500,7 +1502,7 @@ In `apps/web/app/pages/prototype/index.vue`, add after `<ProtoHomeOccasions />`:
 
 - [ ] **Step 3: Verify**
 
-Run: `bun run check` — expected PASS.
+Run: `bun run check-types && bunx vp check apps/web` — expected PASS.
 
 Confirm each of the four frames shows a sand field with its brief in small caps, centred — none is blank. Confirm the four proportions differ visibly and rows do not align. Confirm the statement breaks after «сьогодні.».
 
@@ -1576,7 +1578,7 @@ Also delete the `.home-reviews`, `.home-review`, `.home-review__text`, `.home-re
 
 - [ ] **Step 3: Verify**
 
-Run: `bun run check` — expected PASS.
+Run: `bun run check-types && bunx vp check apps/web` — expected PASS.
 
 Confirm: three quotes, Андрій first, each in large serif with an attribution line beneath; Ігор's review does not appear; generous space between quotes; left edges align; single column at 375px.
 
@@ -1673,7 +1675,7 @@ Also delete the `.home-final` and `.home-final__action` rules from the page's `<
 
 - [ ] **Step 3: Verify**
 
-Run: `bun run check` — expected PASS.
+Run: `bun run check-types && bunx vp check apps/web` — expected PASS.
 
 Confirm: the closing section is visibly warmer than the fact rail above it; statement, supporting line and button are centred; the button carries a right arrow and reaches the catalog.
 
@@ -1767,7 +1769,7 @@ Expected: no output. Any hit is a leftover class from a deleted section.
 
 - [ ] **Step 3: Run the full check**
 
-Run: `bun run check`
+Run: `bun run check-types && bunx vp check apps/web`
 Expected: PASS with no lint or type errors.
 
 - [ ] **Step 4: Walk the page at three viewports**
