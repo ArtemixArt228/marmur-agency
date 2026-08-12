@@ -3,6 +3,10 @@
  * Marmúr DS → components/core/IconButton.
  * Утиліти шапки: пошук, обране, кошик, меню. 44px зона дотику, без тла.
  */
+// Імпорт замість resolveComponent('NuxtLink') — інакше варіант із `to`
+// рендериться як мертвий тег <NuxtLink> і нікуди не веде.
+import { NuxtLink } from "#components";
+
 const props = withDefaults(
   defineProps<{
     icon: string;
@@ -19,7 +23,7 @@ const props = withDefaults(
 
 <template>
   <component
-    :is="props.to ? resolveComponent('NuxtLink') : 'button'"
+    :is="props.to ? NuxtLink : 'button'"
     :to="props.to"
     :type="props.to ? undefined : 'button'"
     class="ds-icon-button"

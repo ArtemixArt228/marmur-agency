@@ -8,6 +8,12 @@
  * `price` приходить уже відформатованим (табличні цифри, розділені тисячі,
  * валюта після числа — §10); слот `price` дозволяє показати ціну зі знижкою.
  */
+// NuxtLink береться імпортом, а не resolveComponent('NuxtLink') у виразі
+// `:is`: Nuxt реєструє компоненти імпортами на збірці, тому в рантаймі
+// resolve не знаходив «NuxtLink» і повертав рядок — у DOM осідав мертвий
+// <NuxtLink> без href, і картка переставала клікатись.
+import { NuxtLink } from "#components";
+
 const props = withDefaults(
   defineProps<{
     name: string;
@@ -33,7 +39,7 @@ const props = withDefaults(
 
 <template>
   <component
-    :is="props.to ? resolveComponent('NuxtLink') : 'article'"
+    :is="props.to ? NuxtLink : 'article'"
     :to="props.to"
     class="ds-product"
     :class="{ 'ds-product--sold-out': props.soldOut }"

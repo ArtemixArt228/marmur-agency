@@ -5,6 +5,10 @@
  * Прямокутна (2px), великі літери, 0.14em tracking. Наведення не змінює
  * розмір; натиск — 0.995 і 0.84 прозорості, без спалахів кольору.
  */
+// Імпорт замість resolveComponent('NuxtLink') — інакше кнопка з `to`
+// рендериться як мертвий тег <NuxtLink> і нікуди не веде.
+import { NuxtLink } from "#components";
+
 const props = withDefaults(
   defineProps<{
     variant?: "primary" | "premium" | "secondary" | "quiet" | "inverse" | "ghost";
@@ -22,7 +26,7 @@ const props = withDefaults(
 
 <template>
   <component
-    :is="props.to ? resolveComponent('NuxtLink') : 'button'"
+    :is="props.to ? NuxtLink : 'button'"
     :to="props.to"
     :type="props.to ? undefined : props.type"
     :disabled="props.to ? undefined : props.disabled"

@@ -4,6 +4,10 @@
  * Малий сансовий лінк із рискою: риска темніє з sand до obsidian,
  * стрілка зсувається на 3px. Це весь «hover-ефект» у системі.
  */
+// Імпорт замість resolveComponent('NuxtLink') — інакше лінк із `to`
+// рендериться як мертвий тег <NuxtLink> і нікуди не веде.
+import { NuxtLink } from "#components";
+
 const props = withDefaults(
   defineProps<{
     to?: string;
@@ -17,7 +21,7 @@ const props = withDefaults(
 
 <template>
   <component
-    :is="props.to ? resolveComponent('NuxtLink') : 'a'"
+    :is="props.to ? NuxtLink : 'a'"
     :to="props.to"
     :href="props.to ? undefined : props.href"
     class="ds-text-link"
