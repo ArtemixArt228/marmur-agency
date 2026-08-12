@@ -11,7 +11,15 @@ const props = withDefaults(defineProps<{ transparent?: boolean }>(), {
 const emit = defineEmits<{ openMenu: [] }>();
 
 const route = useRoute();
+const router = useRouter();
 const { isLoggedIn, cartCount, discountPercent } = usePrototypeShop();
+
+const searchQuery = ref("");
+
+function onSearch(q: string) {
+  searchQuery.value = "";
+  router.push({ path: "/prototype/catalog", query: { q } });
+}
 const isCartOpen = useState<boolean>("proto-cart-open");
 const isLoginOpen = useState<boolean>("proto-login-open", () => false);
 const toast = useToast();
@@ -37,11 +45,20 @@ function onAccount() {
     :active="activePath"
     :transparent="props.transparent"
     :cart-count="cartCount"
-    :show-search="false"
+    :show-search="true"
     home="/prototype"
     @open-cart="isCartOpen = true"
     @open-menu="emit('openMenu')"
   >
+    <template #search="{ tone }">
+      <DsSearchField
+        v-model="searchQuery"
+        :tone="tone"
+        placeholder="Пошук: півонії, ваза, підписка…"
+        @submit="onSearch"
+      />
+    </template>
+
     <template #utilities="{ tone }">
       <DsIconButton
         :icon="isLoggedIn ? 'user-round-check' : 'user-round'"

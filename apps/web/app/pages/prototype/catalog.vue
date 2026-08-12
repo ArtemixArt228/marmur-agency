@@ -42,29 +42,49 @@ const activeBudget = computed(() => {
   return protoBudgets.some((x) => x.key === b) ? b : "all";
 });
 
+const activeQuery = computed(() => String(route.query.q ?? "").trim());
+
 /**
- * Обидва сетери складають query цілком: інакше зміна категорії стирала б
- * активний бюджет, і навпаки. Значення «all» просто не потрапляє в URL.
+ * Три осі фільтра складають query цілком, тому кожен сетер мусить
+ * переписати дві інші — інакше зміна категорії стирала б пошук.
+ * Значення «all» і порожній запит просто не потрапляють в URL.
  */
-function setCategory(key: string) {
+function buildQuery(next: Partial<{ category: string; budget: string; q: string }>) {
+  const category = next.category ?? active.value;
+  const budget = next.budget ?? activeBudget.value;
+  const q = next.q ?? activeQuery.value;
+
   const query: Record<string, string> = {};
-  if (key !== "all") query.category = key;
-  if (activeBudget.value !== "all") query.budget = activeBudget.value;
-  router.replace({ query });
+  if (category !== "all") query.category = category;
+  if (budget !== "all") query.budget = budget;
+  if (q !== "") query.q = q;
+  return query;
+}
+
+function setCategory(key: string) {
+  router.replace({ query: buildQuery({ category: key }) });
 }
 
 function setBudget(key: string) {
-  const query: Record<string, string> = {};
-  if (active.value !== "all") query.category = active.value;
-  if (key !== "all") query.budget = key;
-  router.replace({ query });
+  router.replace({ query: buildQuery({ budget: key }) });
+}
+
+function clearQuery() {
+  router.replace({ query: buildQuery({ q: "" }) });
 }
 
 const visible = computed(() => {
   const budget = protoBudgets.find((b) => b.key === activeBudget.value) ?? protoBudgets[0]!;
+  const q = activeQuery.value.toLowerCase();
   return protoProducts
     .filter((p) => active.value === "all" || p.category === active.value)
     .filter((p) => budget.test(p.price))
+    .filter(
+      (p) =>
+        q === "" ||
+        p.name.toLowerCase().includes(q) ||
+        (p.composition ?? []).some((c) => c.toLowerCase().includes(q)),
+    )
     .sort((a, b) => Number(b.available) - Number(a.available));
 });
 </script>
@@ -96,6 +116,13 @@ const visible = computed(() => {
       :model-value="activeBudget"
       @update:model-value="setBudget"
     />
+
+    <p v-if="activeQuery" class="catalog__query ds-small">
+      За запитом «{{ activeQuery }}» — {{ visible.length }}
+      <button type="button" class="catalog__query-clear ds-meta" @click="clearQuery">
+        скинути
+      </button>
+    </p>
 
     <nav class="catalog__services">
       <span class="ds-meta ds-subtle">За заявкою</span>
@@ -140,6 +167,21 @@ const visible = computed(() => {
 
 .catalog__budgets {
   margin-top: var(--space-4);
+}
+
+.catalog__query {
+  margin-top: var(--space-8);
+  color: var(--color-foreground-muted);
+}
+
+.catalog__query-clear {
+  margin-left: var(--space-4);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--color-foreground);
+  border-bottom: 1px solid var(--color-border-strong);
 }
 
 .catalog__services {

@@ -23,13 +23,13 @@ const props = withDefaults(
     transparent?: boolean;
     cartCount?: number;
     home?: string;
-    /** Вимикається, доки на сайті немає справжнього пошуку */
+    /** Рендерить слот #search між навігацією й утилітами */
     showSearch?: boolean;
   }>(),
   { links: () => [], cartCount: 0, home: "/", showSearch: true },
 );
 
-const emit = defineEmits<{ openCart: []; openMenu: []; search: [] }>();
+const emit = defineEmits<{ openCart: []; openMenu: [] }>();
 
 const { y } = useWindowScroll();
 const compact = computed(() => y.value > 40);
@@ -55,6 +55,8 @@ const tone = computed<"default" | "inverse">(() => (overHero.value ? "inverse" :
       @click="emit('openMenu')"
     />
 
+    <DsWordmark :to="props.home" :size="compact ? 18 : 21" :tone="tone" />
+
     <nav class="ds-header__nav">
       <NuxtLink
         v-for="l in props.links"
@@ -67,18 +69,12 @@ const tone = computed<"default" | "inverse">(() => (overHero.value ? "inverse" :
       </NuxtLink>
     </nav>
 
-    <DsWordmark :to="props.home" :size="compact ? 18 : 21" :tone="tone" />
+    <div v-if="props.showSearch" class="ds-header__search">
+      <slot name="search" :tone="tone" />
+    </div>
 
     <div class="ds-header__utilities">
       <slot name="utilities" :tone="tone" />
-      <DsIconButton
-        v-if="props.showSearch"
-        icon="search"
-        label="Пошук"
-        :tone="tone"
-        class="ds-header__search"
-        @click="emit('search')"
-      />
       <DsIconButton
         icon="shopping-bag"
         label="Кошик"
@@ -128,14 +124,13 @@ const tone = computed<"default" | "inverse">(() => (overHero.value ? "inverse" :
 .ds-header__nav {
   display: none;
   gap: var(--space-8);
-  flex: 1;
 }
 
 .ds-header__link {
   padding: var(--space-2) 0;
-  font: var(--type-meta);
+  font: var(--type-label-sm);
   text-transform: uppercase;
-  letter-spacing: var(--tracking-meta);
+  letter-spacing: var(--tracking-label-sm);
   color: inherit;
   text-decoration: none;
   white-space: nowrap;
@@ -170,9 +165,19 @@ const tone = computed<"default" | "inverse">(() => (overHero.value ? "inverse" :
 
 .ds-header__search {
   display: none;
+  min-width: 0;
 }
 
 @media (min-width: 1024px) {
+  /*
+   * Сітка Peak: знак ліворуч, навігація, поле пошуку, утиліти праворуч.
+   * Пошук забирає вільне місце — саме він тримає центр шапки.
+   */
+  .ds-header {
+    display: grid;
+    grid-template-columns: auto auto 1fr auto;
+  }
+
   .ds-header__burger {
     display: none;
   }
@@ -182,11 +187,9 @@ const tone = computed<"default" | "inverse">(() => (overHero.value ? "inverse" :
   }
 
   .ds-header__search {
-    display: inline-flex;
-  }
-
-  .ds-header__utilities {
-    flex: 1;
+    display: block;
+    max-width: 360px;
+    justify-self: end;
   }
 }
 </style>
