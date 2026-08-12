@@ -95,7 +95,7 @@ const items = computed(() =>
 }
 
 .proto-cart__total {
-  font: var(--type-h3);
+  font: var(--type-mono-lg);
   font-size: 24px;
 }
 </style>

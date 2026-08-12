@@ -121,8 +121,7 @@ const props = withDefaults(
 }
 
 .ds-product__name {
-  font: var(--type-h3);
-  font-size: 20px;
+  font: var(--type-product);
   text-underline-offset: 0.26em;
 }
 
@@ -132,7 +131,8 @@ const props = withDefaults(
 }
 
 .ds-product__price {
-  font: var(--type-small);
+  font: var(--type-mono);
+  font-variant-numeric: tabular-nums;
 }
 
 .ds-product__descriptor {

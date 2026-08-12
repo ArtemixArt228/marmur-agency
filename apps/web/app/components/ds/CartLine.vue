@@ -84,7 +84,7 @@ const emit = defineEmits<{
 }
 
 .ds-cart-line__name {
-  font: var(--type-h3);
+  font: var(--type-product);
   font-size: 19px;
 }
 

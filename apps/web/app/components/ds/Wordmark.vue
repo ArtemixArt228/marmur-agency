@@ -35,7 +35,7 @@ const props = withDefaults(
 <style scoped>
 .ds-wordmark {
   display: inline-block;
-  font-family: var(--font-serif-display);
+  font-family: var(--font-display);
   font-weight: var(--weight-regular);
   line-height: 1;
   text-transform: uppercase;

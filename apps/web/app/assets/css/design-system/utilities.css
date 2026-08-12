@@ -53,9 +53,11 @@
   letter-spacing: var(--tracking-heading);
 }
 
+/* H3 — капсовий шар Inter Tight, не сериф: §4 spec 2026-08-12 */
 .ds-h3 {
   font: var(--type-h3);
-  letter-spacing: var(--tracking-heading);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
 }
 
 .ds-body {
@@ -76,6 +78,22 @@
   font: var(--type-meta);
   text-transform: uppercase;
   letter-spacing: var(--tracking-meta);
+}
+
+/* Мікродані — лічильники, ціни, години, телефон */
+.ds-mono {
+  font: var(--type-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.ds-mono-lg {
+  font: var(--type-mono-lg);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Назва товару — функціональний санс, не сериф */
+.ds-product-name {
+  font: var(--type-product);
 }
 
 .ds-muted {

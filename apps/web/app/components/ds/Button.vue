@@ -49,9 +49,9 @@ const props = withDefaults(
   align-items: center;
   justify-content: center;
   gap: var(--space-3);
-  font-family: var(--font-sans);
-  font-weight: var(--weight-medium);
-  letter-spacing: var(--tracking-meta);
+  font-family: var(--font-label);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-label-sm);
   text-transform: uppercase;
   text-decoration: none;
   border-radius: var(--radius-sm);
@@ -87,19 +87,20 @@ const props = withDefaults(
 /* Розміри */
 .ds-button--sm {
   padding: 9px 18px;
-  font-size: 11px;
+  font-size: var(--text-label-sm);
   min-height: 36px;
 }
 
 .ds-button--md {
-  padding: 13px 26px;
-  font-size: 12px;
+  padding: 12px 24px;
+  font-size: var(--text-label-sm);
   min-height: 44px;
 }
 
 .ds-button--lg {
-  padding: 18px 34px;
-  font-size: 13px;
+  padding: 16px 32px;
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
   min-height: 56px;
 }
 

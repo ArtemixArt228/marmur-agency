@@ -456,8 +456,7 @@ function pay(kind: "card" | "applepay") {
 }
 
 .checkout__total-value {
-  font: var(--type-h3);
-  font-size: 26px;
+  font: var(--type-mono-lg);
 }
 
 .checkout__pay {

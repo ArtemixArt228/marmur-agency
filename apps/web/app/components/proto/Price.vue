@@ -37,7 +37,7 @@ const hasDiscount = computed(() => discountPercent.value > 0);
 }
 
 .proto-price--lg .proto-price__value {
-  font: var(--type-h3);
+  font: var(--type-mono-lg);
   font-size: 26px;
 }
 
