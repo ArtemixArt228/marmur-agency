@@ -2,7 +2,7 @@
 // PROTOTYPE — спільний каркас усіх сторінок прототипу.
 // Сторінка з повноекранним hero декларує definePageMeta({ heroHeader: true }) —
 // тоді шапка лягає поверх першого екрана без тла (§13 дизайн-системи).
-import { protoNav } from "~/data/prototype";
+import { protoDelivery, protoNav } from "~/data/prototype";
 
 const route = useRoute();
 const menuOpen = ref(false);
@@ -17,6 +17,16 @@ watch(
 
 <template>
   <div class="proto-shell">
+    <DsAnnouncementBar
+      :items="[
+        'Свіжі квіти щоранку',
+        `Замовлення до ${protoDelivery.cutoffHour}:00 — доставка сьогодні`,
+        `Безкоштовна доставка від ${protoDelivery.freeFrom.toLocaleString('uk-UA')} ₴`,
+      ]"
+      :left="{ label: 'Наша історія', to: '/prototype/about' }"
+      :right="{ label: 'Майстерня', to: '/prototype/delivery' }"
+    />
+
     <ProtoSiteHeader :transparent="route.meta.heroHeader === true" @open-menu="menuOpen = true" />
 
     <main class="proto-shell__main">

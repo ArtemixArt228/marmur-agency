@@ -2,7 +2,7 @@
 // PROTOTYPE — головна.
 // Ритм секцій нумерований («01 —»), сітки навмисно нерівні (§20):
 // повторюваного «заголовок / текст / три картки / кнопка» тут немає.
-import { protoDelivery, protoProducts, protoReviews } from "~/data/prototype";
+import { protoProducts, protoReviews } from "~/data/prototype";
 
 definePageMeta({ layout: "prototype", heroHeader: true });
 useSeoMeta({ title: "Marmúr — свіжі букети у Львові" });
@@ -49,15 +49,6 @@ const services = [
 <template>
   <div>
     <ProtoHomeHeroShowcase />
-
-    <ProtoMarquee
-      :items="[
-        'Свіжі букети щоранку',
-        `Замовлення до ${protoDelivery.cutoffHour}:00 — доставка сьогодні`,
-        `Безкоштовна доставка від 5 000 ₴`,
-        'Пакування включено',
-      ]"
-    />
 
     <ProtoHomeTodayGrid />
 
