@@ -19,7 +19,6 @@ const bouquets = computed(() => {
   <section id="today" class="ds-container ds-section proto-today">
     <DsReveal>
       <DsSectionHeading
-        index="01 —"
         eyebrow="Вітрина дня"
         :title="`Букети на ${todayWord}`"
         lede="Асортимент збирається щоранку, тому щодня він інший. Позиції з міткою «на завтра» сьогодні вже розібрали."

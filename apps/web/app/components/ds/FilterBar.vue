@@ -44,40 +44,57 @@ const emit = defineEmits<{ "update:modelValue": [value: string] }>();
   justify-content: space-between;
   gap: var(--space-8);
   flex-wrap: wrap;
-  padding-bottom: var(--space-6);
-  border-bottom: var(--border-hairline);
 }
 
+/*
+ * Таб-рейка Peak: горизонтальний скрол замість переносу, активна вкладка —
+ * заливка. Кути лишаються прямими: кругла таблетка поруч із кадром, у якого
+ * радіус 0, виглядала б позиченою (§9 spec 2026-08-12).
+ */
 .ds-filters__list {
   display: flex;
-  gap: var(--space-8);
-  flex-wrap: wrap;
+  gap: var(--space-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+}
+
+.ds-filters__list::-webkit-scrollbar {
+  display: none;
 }
 
 .ds-filters__item {
-  background: none;
-  border: none;
-  padding: var(--space-2) 0;
+  flex: none;
+  scroll-snap-align: start;
+  min-height: 40px;
+  padding: 0 20px;
   cursor: pointer;
-  font: var(--type-meta);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font: var(--type-label-sm);
   text-transform: uppercase;
-  letter-spacing: var(--tracking-meta);
+  letter-spacing: var(--tracking-label-sm);
   color: var(--color-foreground-muted);
-  border-bottom: 1px solid transparent;
+  white-space: nowrap;
   transition: var(--transition-color);
 }
 
-.ds-filters__item--active {
+.ds-filters__item:hover {
+  border-color: var(--color-border-strong);
   color: var(--color-foreground);
-  border-bottom-color: var(--color-foreground);
+}
+
+.ds-filters__item--active {
+  background: var(--color-foreground);
+  border-color: var(--color-foreground);
+  color: var(--color-foreground-inverse);
 }
 
 .ds-filters__count {
   /* На вузьких екранах рейка переноситься — лічильник має лишитись праворуч */
   margin-left: auto;
-  font: var(--type-meta);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-meta);
+  font: var(--type-mono);
   color: var(--color-foreground-subtle);
 }
 </style>

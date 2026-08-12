@@ -57,7 +57,6 @@ const services = [
     <section class="ds-container ds-section">
       <DsReveal>
         <DsSectionHeading
-          index="02 —"
           eyebrow="Каталог"
           title="Оберіть напрям"
           lede="Чотири розділи — від пишних міксів до дрібниць, які роблять подарунок подарунком."
@@ -160,7 +159,6 @@ const services = [
 
         <DsReveal :delay="120">
           <DsSectionHeading
-            index="03 —"
             eyebrow="Студія"
             title="Майстерня, а не конвеєр"
             lede="Ми відкрились як маленька студія флористики й досі збираємо кожен букет руками — під настрій, привід і людину."
@@ -179,7 +177,7 @@ const services = [
     <!-- 04 — Відгуки. Без полароїдів, поворотів і тіней: три тихі колонки -->
     <section class="ds-container ds-section">
       <DsReveal>
-        <DsSectionHeading index="04 —" eyebrow="Відгуки" title="Слова, за які ми працюємо" />
+        <DsSectionHeading eyebrow="Відгуки" title="Слова, за які ми працюємо" />
       </DsReveal>
       <div class="home-reviews">
         <DsReveal v-for="(r, i) in protoReviews" :key="r.name" :delay="i * 80" class="home-review">
