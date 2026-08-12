@@ -18,9 +18,10 @@
 @import "./design-system/utilities.css";
 
 @theme static {
-  --font-sans: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
-  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  /* Моношрифта в системі немає — лишаємо системний для утиліти font-mono */
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /*
    * Рампи для Nuxt UI. Опорні точки — сім кольорів дизайн-системи:

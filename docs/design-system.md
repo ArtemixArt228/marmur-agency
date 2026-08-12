@@ -29,25 +29,25 @@ guidelines лишаються в проєкті Claude Design; сюди імпо
 
 ## Компоненти
 
-| Група      | Компоненти                                                   |
-| ---------- | ------------------------------------------------------------ |
-| core       | `DsButton`, `DsIcon`, `DsIconButton`, `DsTextLink`, `DsTag`  |
+| Група      | Компоненти                                                                    |
+| ---------- | ----------------------------------------------------------------------------- |
+| core       | `DsButton`, `DsIcon`, `DsIconButton`, `DsTextLink`, `DsTag`                   |
 | forms      | `DsInput`, `DsSelect`, `DsQuantityStepper`, `DsOptionSwatch`, `DsSearchField` |
-| commerce   | `DsProductCard`, `DsCartLine`, `DsFilterBar`, `DsCarousel`   |
-| editorial  | `DsEditorialImage`, `DsSectionHeading`, `DsStatementBlock`, `DsOverlayTile` |
-| navigation | `DsWordmark`, `DsHeader`, `DsFooter`, `DsMenuOverlay`, `DsAnnouncementBar` |
-| рух        | `DsReveal` (§25, немає в оригіналі — знято з ui-кіта)        |
+| commerce   | `DsProductCard`, `DsCartLine`, `DsFilterBar`, `DsCarousel`                    |
+| editorial  | `DsEditorialImage`, `DsSectionHeading`, `DsStatementBlock`, `DsOverlayTile`   |
+| navigation | `DsWordmark`, `DsHeader`, `DsFooter`, `DsMenuOverlay`, `DsAnnouncementBar`    |
+| рух        | `DsReveal` (§25, немає в оригіналі — знято з ui-кіта)                         |
 
 ## Правила, які найлегше порушити
 
 - **Колір.** Сім значень, більше немає. Ivory — типове тло сторінки, білий —
   акцент для форм. Колір дають квіти; акцентних відтінків не додаємо.
-- **Тип.** Чотири гарнітури. Playfair Display — display, H1–H2; прямий за
-  замовчуванням, курсив лише в hero і на одному виділеному слові. Inter Tight
-  700 — капсовий шар: навігація, кнопки, ейбрау, H3, підписи плиток, 14–16px,
-  tracking 0.038–0.057em. Geist — тіло й назви товарів. Geist Mono —
-  лічильники, ціни, години, телефон. **H3 капсовий; display і H1–H2 — ніколи.**
-  Сериф не спускається нижче H2.
+- **Тип.** Дві гарнітури. Cormorant Garamond — display, H1–H2; прямий за
+  замовчуванням, курсив лише в hero і на одному виділеному слові. Manrope —
+  усе інше: тіло, назви товарів, капсовий шар (навігація, кнопки, ейбрау, H3,
+  підписи плиток, 14–16px, tracking 0.038–0.057em, вага 700) і мікродані
+  (лічильники, ціни, години, телефон — з `font-variant-numeric: tabular-nums`).
+  **H3 капсовий; display і H1–H2 — ніколи.** Сериф не спускається нижче H2.
 - **Форма.** Радіуси 0–6px. Єдиний виняток — кругла кнопка-стрілка в куті
   `DsOverlayTile`: це контрол, а не поверхня. Зображення й секції — гострі кути.
 - **Підвал світлий.** `--color-background-alt` із волосяною лінією зверху.
@@ -93,11 +93,14 @@ guidelines лишаються в проєкті Claude Design; сюди імпо
    самих токенів (18px, 1px sand, 2px радіус, заливка espresso).
 7. **Стрічка, що їхала (marquee), зникла зовсім:** її зміст переїхав у
    смугу-анонс над шапкою, де його тримає peakdesign.com.
-8. **Типографіка взята з peakdesign.com,** а не з Claude Design: чотири
-   гарнітури замість двох. Archivo, найближча за пропорціями до bryant,
-   не має кирилиці, тому капсовий шар — Inter Tight 700. Та сама перевірка
-   показала, що **DM Sans кирилиці теж не має** — тобто до цієї заміни весь
-   український текст рендерився системним Helvetica / Arial.
+8. **З peakdesign.com узята композиція, не гарнітури.** Шкала, капсовий шар
+   і мікродані лишились Peak-івські, але сам набір повернувся до двох
+   гарнітур Claude Design. Cormorant Garamond — той самий, що в оригінальній
+   системі; сансом замість DM Sans став **Manrope**, бо перевірка Google
+   Fonts показала, що **DM Sans кирилиці не має** — увесь український текст
+   рендерився системним Helvetica / Arial. Manrope кирилицю має. Окремих
+   гарнітур під капс і цифри більше немає: там той самий Manrope, цифри
+   вирівнюємо через `font-variant-numeric: tabular-nums`.
 9. **Смуга-анонс** над шапкою — її немає в оригінальній системі. У потоці,
    не липка.
 10. **Каруселі в системі не було.** `DsCarousel` — scroll-snap із точками,
@@ -107,7 +110,6 @@ guidelines лишаються в проєкті Claude Design; сюди імпо
 
 ## Заміни, які ще треба підтвердити з власницею
 
-1. **Шрифти** — Playfair Display + Geist + Inter Tight + Geist Mono із Google
-   Fonts (спек `2026-08-12-marmur-peak-shell-home-design.md`).
+1. **Шрифти** — Cormorant Garamond + Manrope із Google Fonts.
 2. **Іконки** — Lucide.
 3. **Логотип** — справжнього немає, знак набраний шрифтом (`DsWordmark`).

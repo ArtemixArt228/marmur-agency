@@ -456,6 +456,7 @@ function pay(kind: "card" | "applepay") {
 
 .checkout__total-value {
   font: var(--type-mono-lg);
+  font-variant-numeric: tabular-nums;
 }
 
 .checkout__pay {

@@ -95,6 +95,7 @@ const emit = defineEmits<{ "update:modelValue": [value: string] }>();
   /* На вузьких екранах рейка переноситься — лічильник має лишитись праворуч */
   margin-left: auto;
   font: var(--type-mono);
+  font-variant-numeric: tabular-nums;
   color: var(--color-foreground-subtle);
 }
 </style>

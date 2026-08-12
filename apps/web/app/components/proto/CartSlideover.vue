@@ -96,6 +96,7 @@ const items = computed(() =>
 
 .proto-cart__total {
   font: var(--type-mono-lg);
+  font-variant-numeric: tabular-nums;
   font-size: 24px;
 }
 </style>

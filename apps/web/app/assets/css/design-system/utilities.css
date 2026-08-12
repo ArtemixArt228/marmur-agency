@@ -53,7 +53,7 @@
   letter-spacing: var(--tracking-heading);
 }
 
-/* H3 — капсовий шар Inter Tight, не сериф: §4 spec 2026-08-12 */
+/* H3 — капсовий шар Manrope 700, не сериф: §4 spec 2026-08-12 */
 .ds-h3 {
   font: var(--type-h3);
   text-transform: uppercase;

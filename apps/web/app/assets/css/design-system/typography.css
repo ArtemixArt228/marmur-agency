@@ -2,15 +2,15 @@
  * Імпортовано з Claude Design → «Marmúr — Design System».
  * Не редагувати вручну: значення мають лишатись дзеркалом дизайн-системи.
  *
- * Чотири гарнітури за мовою Peak Design (див. spec 2026-08-12):
- * сериф — тільки display/H1/H2, капсовий шар — Inter Tight, бо Archivo
- * не має кирилиці; моно — лічильники, ціни, години.
+ * Дві гарнітури: сериф — тільки display/H1/H2, Manrope — усе інше.
+ * Капсовий шар і мікродані (лічильники, ціни, години) власних гарнітур
+ * не мають: там той самий Manrope, цифри — табличні (font-variant-numeric).
  */
 :root {
-  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
-  --font-sans: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-label: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-label: var(--font-sans);
+  --font-numeric: var(--font-sans);
 
   --text-display: clamp(44px, 6.4vw, 80px);
   --text-h1: clamp(36px, 4.4vw, 64px);
@@ -58,7 +58,7 @@
   --type-label: var(--weight-bold) var(--text-label) / var(--leading-label) var(--font-label);
   --type-label-sm: var(--weight-bold) var(--text-label-sm) / var(--leading-label) var(--font-label);
   --type-meta: var(--weight-bold) var(--text-meta) / 1.4 var(--font-label);
-  --type-mono: var(--weight-regular) var(--text-mono) / 1 var(--font-mono);
-  --type-mono-lg: var(--weight-regular) var(--text-mono-lg) / 1.1 var(--font-mono);
+  --type-mono: var(--weight-regular) var(--text-mono) / 1 var(--font-numeric);
+  --type-mono-lg: var(--weight-regular) var(--text-mono-lg) / 1.1 var(--font-numeric);
   --type-product: var(--weight-regular) var(--text-product) / 1.35 var(--font-sans);
 }

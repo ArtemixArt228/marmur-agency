@@ -85,6 +85,7 @@ const props = withDefaults(
 
 .ds-tile__meta {
   font: var(--type-mono);
+  font-variant-numeric: tabular-nums;
   opacity: 0.78;
 }
 

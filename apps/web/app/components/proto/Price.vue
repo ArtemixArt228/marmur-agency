@@ -33,16 +33,20 @@ const hasDiscount = computed(() => discountPercent.value > 0);
 
 .proto-price__value {
   font: var(--type-small);
+  /* Скорочення font скидає варіант цифр — вертаємо табличні після нього */
+  font-variant-numeric: tabular-nums;
   color: var(--color-foreground);
 }
 
 .proto-price--lg .proto-price__value {
   font: var(--type-mono-lg);
+  font-variant-numeric: tabular-nums;
   font-size: 26px;
 }
 
 .proto-price__base {
   font: var(--type-small);
+  font-variant-numeric: tabular-nums;
   font-size: var(--text-meta);
   color: var(--color-foreground-subtle);
   text-decoration-thickness: 1px;
