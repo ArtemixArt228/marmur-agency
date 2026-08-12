@@ -48,9 +48,9 @@ const services = [
 
 <template>
   <div>
-    <ProtoHomeHeroShowcase />
+    <ProtoHomeHeroSplit />
 
-    <ProtoHomeTodayGrid />
+    <ProtoHomeProductRail />
 
     <!-- 02 — Розділи каталогу. Сітка нерівна: одна висока плитка проти
          чотирьох, серед яких одна текстова на темному. -->
