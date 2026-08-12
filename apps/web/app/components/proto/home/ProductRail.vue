@@ -46,7 +46,7 @@ const bouquets = computed(() => {
     </DsCarousel>
 
     <p v-if="bouquets.length === 0" class="rail__empty ds-body ds-muted">
-      У цьому бюджеті сьогодні нічого не лишилось — гляньте сусідній.
+      У цьому бюджеті сьогодні нічого не лишилось. Спробуйте сусідній.
     </p>
   </section>
 </template>

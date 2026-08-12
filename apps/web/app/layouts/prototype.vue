@@ -20,7 +20,7 @@ watch(
     <DsAnnouncementBar
       :items="[
         'Свіжі квіти щоранку',
-        `Замовлення до ${protoDelivery.cutoffHour}:00 — доставка сьогодні`,
+        `Замовлення до ${protoDelivery.cutoffHour}:00 привеземо сьогодні`,
         `Безкоштовна доставка від ${protoDelivery.freeFrom.toLocaleString('uk-UA')} ₴`,
       ]"
       :left="{ label: 'Наша історія', to: '/prototype/about' }"

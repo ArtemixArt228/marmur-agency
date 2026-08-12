@@ -27,7 +27,7 @@
             >
           </h2>
           <p class="manifesto__text">
-            Ми відкрились як маленька студія й досі збираємо руками — під настрій, привід і людину.
+            Готових наборів у нас немає. Флорист збирає букет під привід і під людину.
           </p>
           <div class="manifesto__action">
             <DsButton variant="inverse" to="/prototype/about">Як ми працюємо</DsButton>

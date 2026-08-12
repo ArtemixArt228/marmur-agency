@@ -11,10 +11,10 @@
       <DsReveal>
         <div class="whats-new__body">
           <p class="ds-meta whats-new__eyebrow">[ Нове цього тижня ]</p>
-          <h2 class="whats-new__title">Щотижня — інші квіти.</h2>
+          <h2 class="whats-new__title">Щотижня інші квіти.</h2>
           <p class="whats-new__text">
             Асортимент залежить від того, що привезли на ринок уранці. Те, що ви бачите сьогодні,
-            завтра вже може поступитись місцем іншому.
+            завтра вже може зникнути з каталогу.
           </p>
           <div class="whats-new__action">
             <DsButton variant="inverse" size="lg" to="/prototype/catalog" icon-right="arrow-right">

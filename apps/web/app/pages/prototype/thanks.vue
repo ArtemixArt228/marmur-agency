@@ -24,7 +24,7 @@ const dayWord = computed(() => (order.value?.day === "today" ? "сьогодні
     <p class="ds-meta ds-subtle">Замовлення прийнято</p>
 
     <DsStatementBlock size="h1" class="thanks__statement">
-      Дякуємо.<br />Далі — наша робота.
+      Дякуємо.<br />Далі ми все зробимо.
     </DsStatementBlock>
 
     <div v-if="order" class="thanks__detail">
@@ -35,7 +35,7 @@ const dayWord = computed(() => (order.value?.day === "today" ? "сьогодні
           ><template v-if="order.zone"> ({{ order.zone }})</template>.
         </template>
         <template v-else> Замовлення чекатиме на вас у майстерні {{ dayWord }}. </template>
-        <template v-if="order.surprise"> Отримувачу не дзвонитимемо — це сюрприз. </template>
+        <template v-if="order.surprise"> Це сюрприз, тому отримувачу не дзвонитимемо. </template>
       </p>
       <p v-if="order.total" class="ds-small ds-subtle thanks__total">
         Оплачено {{ formatUah(order.total) }} · підтвердження надіслали СМС
@@ -43,7 +43,7 @@ const dayWord = computed(() => (order.value?.day === "today" ? "сьогодні
     </div>
 
     <p class="ds-body ds-muted thanks__note">
-      Менеджер уже отримав ваше замовлення. Якщо щось знадобиться — ми на звʼязку за номером із СМС.
+      Менеджер уже отримав ваше замовлення. Якщо щось знадобиться, ми на звʼязку за номером із СМС.
     </p>
 
     <div class="thanks__actions">

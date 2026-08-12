@@ -27,7 +27,7 @@ export const protoProducts: ProtoProduct[] = [
     photo: "/prototype/bouquet-lush-mix.jpg",
     available: true,
     description:
-      "Пишний мікс із піоновидних троянд, астранції та сезонних ягід — виглядає як щойно зібраний у саду.",
+      "Пишний мікс із піоновидних троянд, астранції та сезонних ягід. Виглядає так, ніби його щойно зібрали в саду.",
     composition: ["Піоновидна троянда", "Астранція", "Гіперикум", "Евкаліпт"],
   },
   {
@@ -38,7 +38,7 @@ export const protoProducts: ProtoProduct[] = [
     photo: "/prototype/bouquet-dark-mix.jpg",
     available: true,
     description:
-      "Глибокі винні відтінки: анемони, ранункулюси й протея для тих, хто любить драматичне.",
+      "Глибокі винні відтінки: анемони, ранункулюси й протея. Для тих, хто любить драматичне.",
     composition: ["Анемона", "Ранункулюс", "Протея", "Лаванда"],
   },
   {
@@ -48,7 +48,7 @@ export const protoProducts: ProtoProduct[] = [
     category: "mix",
     photo: "/prototype/bouquet-peach.jpg",
     available: true,
-    description: "Ніжний букет у персикових тонах — кущові троянди, еустома та багато повітря.",
+    description: "Ніжний букет у персикових тонах: кущові троянди, еустома та багато повітря.",
     composition: ["Кущова троянда", "Еустома", "Евкаліпт"],
   },
   {
@@ -58,7 +58,7 @@ export const protoProducts: ProtoProduct[] = [
     category: "mono",
     photo: "/prototype/bouquet-cream-roses.jpg",
     available: true,
-    description: "Моно-букет із кремових піоновидних троянд — класика, яка не потребує пояснень.",
+    description: "Класичний моно-букет із кремових піоновидних троянд.",
     composition: ["Піоновидна троянда David Austin"],
   },
   {
@@ -68,7 +68,7 @@ export const protoProducts: ProtoProduct[] = [
     category: "mono",
     photo: "/prototype/bouquet-red-roses.jpg",
     available: false,
-    description: "Двадцять одна червона троянда глибокого відтінку. Той самий жест.",
+    description: "Двадцять одна червона троянда глибокого відтінку.",
     composition: ["Троянда Explorer 60 см"],
   },
   {
@@ -88,7 +88,7 @@ export const protoProducts: ProtoProduct[] = [
     category: "mono",
     photo: "/prototype/bouquet-tulip.jpg",
     available: true,
-    description: "Свіжі тюльпани — просто, весняно і завжди доречно.",
+    description: "Свіжі тюльпани. Просто і завжди доречно.",
     composition: ["Тюльпан піоновидний"],
   },
   {
@@ -98,7 +98,7 @@ export const protoProducts: ProtoProduct[] = [
     category: "mono",
     photo: "/prototype/bouquet-calla.jpg",
     available: false,
-    description: "Стриманий букет із рожевих калл — графічний і елегантний.",
+    description: "Стриманий графічний букет із рожевих калл.",
     composition: ["Калла"],
   },
   {
@@ -108,7 +108,7 @@ export const protoProducts: ProtoProduct[] = [
     category: "mono",
     photo: "/prototype/marmur-2.jpg",
     available: true,
-    description: "Оберемок білих півоній у фірмовому пакуванні — фото з нашого поля, без прикрас.",
+    description: "Оберемок білих півоній у фірмовому пакуванні. Фото з нашого поля.",
     composition: ["Півонія"],
   },
   {
@@ -119,7 +119,7 @@ export const protoProducts: ProtoProduct[] = [
     photo: "/prototype/marmur-3.jpg",
     available: true,
     description:
-      "Весільний букет під образ і сукню — збираємо після особистої консультації з флористом.",
+      "Весільний букет під образ і сукню. Збираємо після особистої консультації з флористом.",
     composition: ["Півонія", "Кущова троянда", "Стабілізована зелень"],
   },
   {
@@ -129,8 +129,7 @@ export const protoProducts: ProtoProduct[] = [
     category: "baskets",
     photo: "/prototype/composition-heart.jpg",
     available: true,
-    description:
-      "Композиція-серце з сезонних квітів у флористичній губці — для особливих приводів.",
+    description: "Композиція-серце з сезонних квітів у флористичній губці.",
     composition: ["Троянда", "Далія", "Кустова троянда", "Мімоза"],
   },
   {
@@ -140,7 +139,7 @@ export const protoProducts: ProtoProduct[] = [
     category: "baskets",
     photo: "/prototype/rose-solo.jpg",
     available: true,
-    description: "Одна досконала троянда у скляній вазі — мінімалізм як він є.",
+    description: "Одна троянда у скляній вазі.",
     composition: ["Троянда", "Ваза у комплекті"],
   },
   {
@@ -168,7 +167,7 @@ export const protoProducts: ProtoProduct[] = [
     category: "gift",
     photo: "/prototype/gift-vase.jpg",
     available: true,
-    description: "Матова керамічна ваза ручної роботи — дім для майбутніх букетів.",
+    description: "Матова керамічна ваза ручної роботи.",
   },
 ];
 
@@ -205,12 +204,12 @@ export const protoServices = [
   {
     id: "decor",
     label: "Декор свята",
-    text: "Оформлення подій квітами: дні народження, корпоративи, фотозони. Виїжджаємо, слухаємо, пропонуємо концепцію.",
+    text: "Оформлення подій квітами: дні народження, корпоративи, фотозони. Приїдемо на місце й запропонуємо концепцію.",
   },
   {
     id: "flower-sub",
     label: "Квіткова підписка",
-    text: "Свіжий букет у ваш дім чи офіс щотижня або щодва — за підпискою, з персональним стилем.",
+    text: "Свіжий букет у ваш дім чи офіс щотижня або раз на два тижні, за підпискою і у вашому стилі.",
   },
 ];
 
@@ -218,7 +217,7 @@ export const protoReviews = [
   {
     name: "Олена",
     source: "Instagram",
-    text: "Замовляла букет мамі на ювілей — привезли точно у вікно, квіти простояли два тижні. Найкращі у місті!",
+    text: "Замовляла букет мамі на ювілей. Привезли точно у вікно, квіти простояли два тижні.",
   },
   {
     name: "Андрій",
@@ -228,12 +227,12 @@ export const protoReviews = [
   {
     name: "Марта",
     source: "Instagram",
-    text: "Це вже пʼятий букет за пів року. Пакування таке, що шкода розгортати. Дякую за естетику!",
+    text: "Це вже пʼятий букет за пів року. Пакування таке, що шкода розгортати.",
   },
   {
     name: "Ігор",
     source: "Google",
-    text: "Замовив о 21:00 на ранок — о 10:30 букет уже був у отримувачки. Сервіс рівня столиці.",
+    text: "Замовив о 21:00 на ранок, о 10:30 букет уже був у отримувачки.",
   },
 ];
 

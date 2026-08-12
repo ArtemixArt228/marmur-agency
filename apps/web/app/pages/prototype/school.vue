@@ -8,9 +8,9 @@ const toast = useToast();
 const form = reactive({ name: "", phone: "", note: "" });
 
 const programmes = [
-  "Базовий курс — 4 заняття по 3 години",
-  "Майстер-клас вихідного дня — 1 зустріч",
-  "Індивідуальний інтенсив — програма під вас",
+  "Базовий курс: 4 заняття по 3 години",
+  "Майстер-клас вихідного дня: 1 зустріч",
+  "Індивідуальний інтенсив: програма під вас",
 ];
 
 function submit() {
@@ -44,7 +44,7 @@ function submit() {
             спірального букета до комерційної флористики й роботи з весіллями.
           </p>
           <p class="ds-body ds-muted">
-            Усі матеріали й квіти включені — свій букет ви забираєте з собою.
+            Усі матеріали й квіти включені. Свій букет ви забираєте з собою.
           </p>
         </div>
 
@@ -57,7 +57,9 @@ function submit() {
 
       <form class="ds-panel school__form" @submit.prevent="submit">
         <h2 class="ds-h3">Залишити заявку</h2>
-        <p class="ds-small ds-muted">Розкажемо про програму, дати й вартість — без зобовʼязань.</p>
+        <p class="ds-small ds-muted">
+          Розкажемо про програму, дати й вартість. Нічого не треба вирішувати одразу.
+        </p>
 
         <DsInput v-model="form.name" label="Імʼя" placeholder="Оля" autocomplete="name" required />
         <DsInput

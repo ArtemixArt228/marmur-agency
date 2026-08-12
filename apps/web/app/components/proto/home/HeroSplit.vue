@@ -20,17 +20,13 @@
     />
     <span class="hero__scrim" />
 
-    <p class="hero__draft ds-meta">
-      Чернетка: вертикальний рілз, кропнутий — згодом горизонтальне відео
-    </p>
-
     <div class="hero__inner">
       <div class="hero__body">
         <p class="hero__eyebrow ds-meta">[ Львів · з 2019 ]</p>
 
-        <h1 class="hero__title">Квіти, які<br />залишаються.</h1>
+        <h1 class="hero__title">Квіти, зібрані<br />сьогодні вранці.</h1>
 
-        <p class="hero__lede">Збираємо щоранку. Замовлення до 18:00 — привеземо сьогодні.</p>
+        <p class="hero__lede">Збираємо щоранку. Замовлення до 18:00 привеземо сьогодні.</p>
 
         <div class="hero__actions">
           <DsButton variant="inverse" size="lg" to="/prototype/catalog">

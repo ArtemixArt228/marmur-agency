@@ -5,7 +5,7 @@ import { protoDelivery } from "~/data/prototype";
 
 <template>
   <DsFooter
-    note="Квіткова майстерня у Львові. Збираємо букети щоранку — з тих квітів, які самі поставили б удома."
+    note="Квіткова майстерня у Львові. Збираємо букети щоранку з тих квітів, які самі поставили б удома."
     :social="{ label: 'Instagram', href: 'https://instagram.com/marmur.flowers' }"
     legal="Прототип для обговорення дизайну"
     newsletter

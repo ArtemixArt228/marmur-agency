@@ -96,8 +96,8 @@ const visible = computed(() => {
       eyebrow="Асортимент дня"
       :lede="
         active === 'gift'
-          ? `${protoGiftSubcategories.join(' · ')} — усе, що доповнює квіти.`
-          : `Позиції з міткою «на завтра» сьогодні вже розібрали — завтра вранці вони знову в майстерні. Решта — на ${todayWord}.`
+          ? `${protoGiftSubcategories.join(' · ')}. Усе, що доповнює квіти.`
+          : `Позиції з міткою «на завтра» сьогодні вже розібрали, завтра вранці вони знову будуть у майстерні. Решта доступна на ${todayWord}.`
       "
     />
 
@@ -118,7 +118,7 @@ const visible = computed(() => {
     />
 
     <p v-if="activeQuery" class="catalog__query ds-small">
-      За запитом «{{ activeQuery }}» — {{ visible.length }}
+      За запитом «{{ activeQuery }}»: {{ visible.length }}
       <button type="button" class="catalog__query-clear ds-meta" @click="clearQuery">
         скинути
       </button>
@@ -144,7 +144,7 @@ const visible = computed(() => {
       <h2 class="ds-h2">{{ activeService.label }}</h2>
       <p class="ds-body ds-muted catalog__service-text">{{ activeService.text }}</p>
       <p class="ds-small ds-subtle catalog__service-note">
-        Тут немає кошика — залиште заявку, і флорист звʼяжеться з вами особисто.
+        Тут немає кошика. Залиште заявку, і флорист звʼяжеться з вами особисто.
       </p>
       <DsButton class="catalog__service-cta" variant="premium" to="/prototype/school">
         Залишити заявку
