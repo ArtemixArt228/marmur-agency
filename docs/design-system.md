@@ -33,7 +33,7 @@ guidelines лишаються в проєкті Claude Design; сюди імпо
 | ---------- | ----------------------------------------------------------------------------- |
 | core       | `DsButton`, `DsIcon`, `DsIconButton`, `DsTextLink`, `DsTag`                   |
 | forms      | `DsInput`, `DsSelect`, `DsQuantityStepper`, `DsOptionSwatch`, `DsSearchField` |
-| commerce   | `DsProductCard`, `DsCartLine`, `DsFilterBar`, `DsCarousel`                    |
+| commerce   | `DsProductCard`, `DsCartLine`, `DsFilterBar`, `DsCarousel`, `DsCarouselNav`   |
 | editorial  | `DsEditorialImage`, `DsSectionHeading`, `DsStatementBlock`, `DsOverlayTile`   |
 | navigation | `DsWordmark`, `DsHeader`, `DsFooter`, `DsMenuOverlay`, `DsAnnouncementBar`    |
 | рух        | `DsReveal` (§25, немає в оригіналі — знято з ui-кіта)                         |
@@ -75,7 +75,7 @@ guidelines лишаються в проєкті Claude Design; сюди імпо
   на ньому (див. відхилення 12). Проп `transparent` у `DsHeader` лишився, але
   прототип його не вмикає.
 - **Іконки.** Функціональні, з набору Lucide: `search`, `heart`,
-  `shopping-bag`, `menu`, `x`, `arrow-right`, `plus`, `minus`,
+  `shopping-bag`, `menu`, `x`, `arrow-right`, `arrow-left`, `plus`, `minus`,
   `chevron-down`, `user-round`. Ніколи декоративні. Емодзі — ніколи.
 - **Голос.** Тихий, без реклами. Без окличних знаків, терміновості, знижкової
   лексики й найвищих ступенів. CTA називає ціль: «Переглянути колекцію».
@@ -132,6 +132,25 @@ guidelines лишаються в проєкті Claude Design; сюди імпо
 14. **Знак із двох рядків.** MARMÚR сериф-дисплеєм плюс FLOWERS капсом 8px під
     ним — макет власниці. Трекінг у ньому свій (0.18em і 0.52em) і не збігається
     з `--tracking-wordmark: 0.22em`, який лишився від однорядкового знака.
+15. **Активний фільтр залитий espresso, не обсидіаном** — тим самим, що й
+    чекбокс із §6. Чорна плитка на ivory читалась як помилка рендера, а на
+    ховері зникала зовсім: `.ds-filters__item:hover` мав ту саму специфічність,
+    що й `--active`, ішов пізніше й повертав темний текст на темне тло. Тепер
+    ховер неактивних вкладок виражений через `:not(.ds-filters__item--active)`,
+    а активна на ховері світлішає — espresso, підмішаний до тла на 16%.
+    `color-mix` тут єдиний у застосунку: проміжного токена між espresso та
+    ivory немає, а дописати його в `colors.css` не можна: той файл дзеркалить
+    Claude Design (див. шапку цього документа).
+    Кути вкладок і точки каруселі стали 0 — обидва місця раніше суперечили §24.
+16. **Стрілки каруселі стоять у рейці фільтрів, замість лічильника позицій** —
+    так у peakdesign.com. Круглі в оригіналі, у нас прямокутні 40×40, урівень
+    із вкладками. Правий бік `DsFilterBar` став слотом `end`, лічильник лишився
+    його заповненням за замовчуванням — каталог показує «15 позицій» досі.
+    Прокрутку знає `DsCarousel`, тому кроки й краї каретки він віддає назовні
+    через `defineExpose`, а `DsCarouselNav` лишається без стану. Крок — ширина
+    видимої частини каретки, не `maxScroll / pages`: `perView` описує тільки
+    десктоп. Погашені кнопки не ховаються: рейка інакше смикалась би на кожному
+    переключенні фільтра.
 
 ## Заміни, які ще треба підтвердити з власницею
 

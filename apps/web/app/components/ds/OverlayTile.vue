@@ -101,7 +101,6 @@ const props = withDefaults(
   place-items: center;
   width: 36px;
   height: 36px;
-  border-radius: 9999px;
   border: 1px solid var(--color-border-inverse);
   background: rgb(245 241 234 / 0.14);
   transition:

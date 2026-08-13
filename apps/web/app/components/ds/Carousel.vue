@@ -5,32 +5,81 @@
  * Рядок зі scroll-snap і точками. Автопрокрутки немає — §25 забороняє
  * елементи, які анімуються постійно. Без JS це лишається звичайним
  * горизонтальним скролом, тому нічого не ховається.
+ *
+ * Стрілки живуть не тут: у макеті вони стоять у рейці фільтрів, над каруселлю.
+ * Тому керування каретка віддає назовні через `defineExpose`.
  */
 const props = withDefaults(defineProps<{ count: number; perView?: number }>(), { perView: 4 });
 
 const track = ref<HTMLElement | null>(null);
 const page = ref(0);
+/** Скільки ще лишилось прокрутити; 0 означає, що каретка нерухома */
+const maxScroll = ref(0);
+const scrollLeft = ref(0);
 
 const pages = computed(() => Math.max(1, Math.ceil(props.count / props.perView)));
 
-function onScroll() {
+// Допуск в 1px: на дробових ширинах колонок браузер віддає дробовий scrollLeft,
+// і без нього каретка на самому краю вважалась би недокрученою.
+const atStart = computed(() => scrollLeft.value <= 1);
+const atEnd = computed(() => scrollLeft.value >= maxScroll.value - 1);
+
+function measure() {
   const el = track.value;
   if (!el) return;
-  const max = el.scrollWidth - el.clientWidth;
-  page.value = max <= 0 ? 0 : Math.round((el.scrollLeft / max) * (pages.value - 1));
+  maxScroll.value = el.scrollWidth - el.clientWidth;
+  scrollLeft.value = el.scrollLeft;
+  page.value =
+    maxScroll.value <= 0 ? 0 : Math.round((el.scrollLeft / maxScroll.value) * (pages.value - 1));
 }
 
 function goTo(i: number) {
   const el = track.value;
   if (!el) return;
-  const max = el.scrollWidth - el.clientWidth;
-  el.scrollTo({ left: pages.value <= 1 ? 0 : (max / (pages.value - 1)) * i, behavior: "smooth" });
+  el.scrollTo({
+    left: pages.value <= 1 ? 0 : (maxScroll.value / (pages.value - 1)) * i,
+    behavior: "smooth",
+  });
 }
+
+/*
+ * Крок стрілок — ширина видимої частини каретки, а не `maxScroll / pages`:
+ * `perView` описує лише десктоп, а нижче 1024px у рядку менше карток, і крок
+ * за `pages` перестрибував би через них. Далі scroll-snap притягує до картки.
+ */
+function step(direction: 1 | -1) {
+  const el = track.value;
+  if (!el) return;
+  el.scrollBy({ left: el.clientWidth * direction, behavior: "smooth" });
+}
+
+let observer: ResizeObserver | undefined;
+
+onMounted(() => {
+  measure();
+  if (!track.value) return;
+  observer = new ResizeObserver(measure);
+  observer.observe(track.value);
+});
+
+onBeforeUnmount(() => observer?.disconnect());
+
+// Зміна фільтра підміняє картки: каретку треба повернути на початок і переміряти
+watch(
+  () => props.count,
+  async () => {
+    track.value?.scrollTo({ left: 0 });
+    await nextTick();
+    measure();
+  },
+);
+
+defineExpose({ prev: () => step(-1), next: () => step(1), atStart, atEnd });
 </script>
 
 <template>
   <div class="ds-carousel">
-    <div ref="track" class="ds-carousel__track" @scroll.passive="onScroll">
+    <div ref="track" class="ds-carousel__track" @scroll.passive="measure">
       <slot />
     </div>
 
@@ -87,12 +136,13 @@ function goTo(i: number) {
   gap: var(--space-2);
 }
 
+/* Точки прямокутні, не круглі: §24 забороняє rounded-full на UI */
 .ds-carousel__dot {
   width: 8px;
   height: 8px;
   padding: 0;
   border: none;
-  border-radius: 9999px;
+  border-radius: var(--radius-none);
   background: var(--color-border);
   cursor: pointer;
   transition: var(--transition-color);

@@ -6,11 +6,16 @@
  * Таби фільтрують за бюджетом, а не за категорією: категорії отримують
  * цілу мозаїку нижче, і два входи в те саме дублювали б навігацію.
  */
+import { DsCarousel } from "#components";
 import { protoBudgets, protoProducts } from "~/data/prototype";
 
 const { todayWord } = usePrototypeShop();
 
 const activeBudget = ref<string>("all");
+
+// Стрілки стоять у рейці фільтрів, а прокрутку знає карусель під нею —
+// звідси реф: рейка бере в неї і край каретки, і самі кроки.
+const carousel = ref<InstanceType<typeof DsCarousel> | null>(null);
 
 const bouquets = computed(() => {
   const budget = protoBudgets.find((b) => b.key === activeBudget.value) ?? protoBudgets[0]!;
@@ -38,10 +43,20 @@ const bouquets = computed(() => {
       v-model="activeBudget"
       class="rail__filters"
       :filters="protoBudgets.map((b) => ({ key: b.key, label: b.label }))"
-      :count="`${bouquets.length} позицій`"
-    />
+    >
+      <template #end>
+        <DsCarouselNav
+          :at-start="carousel?.atStart"
+          :at-end="carousel?.atEnd"
+          label-prev="Попередні букети"
+          label-next="Наступні букети"
+          @prev="carousel?.prev()"
+          @next="carousel?.next()"
+        />
+      </template>
+    </DsFilterBar>
 
-    <DsCarousel :count="bouquets.length" class="rail__carousel">
+    <DsCarousel ref="carousel" :count="bouquets.length" class="rail__carousel">
       <ProtoProductCard v-for="p in bouquets" :key="p.id" :product="p" />
     </DsCarousel>
 

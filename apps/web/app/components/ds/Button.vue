@@ -86,7 +86,7 @@ const props = withDefaults(
 
 /* Розміри */
 .ds-button--sm {
-  padding: 9px 18px;
+  padding: 8px 18px;
   font-size: var(--text-label-sm);
   min-height: 36px;
 }
