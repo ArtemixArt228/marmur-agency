@@ -66,6 +66,21 @@
    * scroll-margin якорів), мають бачити ту саму висоту.
    */
   --header-height: var(--header-height-scrolled);
+
+  /*
+   * Ритм секцій — один на всі блоки: 24px на мобільному, 64px від планшета.
+   * Claude Design тримає clamp(80–128) / clamp(120–200); тут обидва токени
+   * зведені до однієї сходинки, щоб сусідні секції не розходились.
+   */
+  --space-section: var(--space-6);
+  --space-section-lg: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --space-section: var(--space-16);
+    --space-section-lg: var(--space-16);
+  }
 }
 
 /*

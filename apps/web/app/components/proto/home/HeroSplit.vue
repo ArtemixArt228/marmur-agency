@@ -45,7 +45,7 @@
 .hero {
   /* Стеля 540px: вище кадр починає жити самими відступами */
   --hero-height: clamp(420px, 60vh, 540px);
-  --hero-inset: var(--space-8);
+  --hero-inset: var(--space-section);
 
   position: relative;
   display: flex;

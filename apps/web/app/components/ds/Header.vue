@@ -154,7 +154,14 @@ const tone = computed<"default" | "inverse">(() => (overHero.value ? "inverse" :
 }
 
 .ds-header__burger {
+  display: none;
   margin-left: -12px;
+}
+
+@media (max-width: 1023px) {
+  .ds-header__burger {
+    display: inline-flex;
+  }
 }
 
 .ds-header__utilities {
@@ -178,10 +185,6 @@ const tone = computed<"default" | "inverse">(() => (overHero.value ? "inverse" :
   .ds-header {
     display: grid;
     grid-template-columns: auto auto 1fr auto;
-  }
-
-  .ds-header__burger {
-    display: none;
   }
 
   .ds-header__nav {

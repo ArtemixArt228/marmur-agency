@@ -20,12 +20,9 @@
   padding-inline: var(--gutter-lg);
 }
 
-.ds-section {
-  padding-block: var(--space-section);
-}
-
+.ds-section,
 .ds-section-lg {
-  padding-block: var(--space-section-lg);
+  padding-block: var(--space-section);
 }
 
 .ds-section-dark {
@@ -35,6 +32,21 @@
 
 .ds-bleed {
   width: 100%;
+}
+
+/*
+ * Бургер ховається ще в цьому файлі, а не в scoped-стилях шапки: інакше
+ * DsIconButton (display: inline-flex) встигає намалюватись на десктопі,
+ * поки Vite/Nuxt інжектить Header.vue. !important бʼє ту саму специфічність.
+ */
+.ds-header__burger {
+  display: none !important;
+}
+
+@media (max-width: 1023px) {
+  .ds-header__burger {
+    display: inline-flex !important;
+  }
 }
 
 /* Типографічні ролі — §7, §8 */
