@@ -1,26 +1,29 @@
 <script setup lang="ts">
  /**
- * PROTOTYPE — hero. Кадр на всю ширину, текстовий блок праворуч.
- *
- * Спліт-панелі 50/50 тут немає навмисно: на живій сторінці Peak hero — це
- * повноширинний кадр, а спліт ужито один раз, у блоці «Manifesto».
+ * PROTOTYPE — hero. Спліт із двох блоків поверх повноширинного кадру:
+ * ліворуч рухоме відео, праворуч текст. Фон — саме фотографія, відео живе
+ * у своїй рамці й не тягне на себе весь екран.
  */
 </script>
 
 <template>
   <section class="hero">
-    <video
-      src="/prototype/marmur-video.mp4"
-      poster="/prototype/hero-wide.jpg"
-      class="hero__media"
-      autoplay
-      muted
-      loop
-      playsinline
-    />
+    <img src="/prototype/hero-wide.jpg" alt="" class="hero__backdrop" fetchpriority="high" />
     <span class="hero__scrim" />
 
     <div class="hero__inner">
+      <figure class="hero__frame">
+        <video
+          src="/prototype/marmur-video.mp4"
+          poster="/prototype/marmur-3.jpg"
+          class="hero__video"
+          autoplay
+          muted
+          loop
+          playsinline
+        />
+      </figure>
+
       <div class="hero__body">
         <p class="hero__eyebrow ds-meta">[ Львів · з 2019 ]</p>
 
@@ -43,15 +46,20 @@
 
 <style scoped>
 .hero {
+  /* Стеля 540px: вище кадр починає жити самими відступами */
+  --hero-height: clamp(420px, 60vh, 540px);
+  --hero-inset: var(--space-8);
+
   position: relative;
   display: flex;
   align-items: center;
-  min-height: clamp(560px, 82vh, 760px);
+  min-height: var(--hero-height);
+  padding-block: var(--hero-inset);
   overflow: hidden;
   background: var(--color-brand-dark);
 }
 
-.hero__media {
+.hero__backdrop {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -72,27 +80,33 @@
   pointer-events: none;
 }
 
-.hero__draft {
-  position: absolute;
-  top: calc(var(--header-height) + var(--space-6));
-  left: var(--gutter);
-  max-width: 22ch;
-  color: var(--color-foreground-inverse);
-  opacity: 0.55;
-}
-
 .hero__inner {
   position: relative;
+  display: grid;
+  align-items: center;
+  gap: var(--space-12);
   width: 100%;
   max-width: var(--container-max);
   margin-inline: auto;
   padding-inline: var(--gutter-lg);
-  display: flex;
-  justify-content: flex-end;
+}
+
+.hero__frame {
+  margin: 0;
+  overflow: hidden;
+  aspect-ratio: var(--ratio-wide);
+  background: var(--color-brand-dark);
+}
+
+.hero__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .hero__body {
-  width: min(100%, 46ch);
+  max-width: 46ch;
   color: var(--color-foreground-inverse);
 }
 
@@ -131,13 +145,19 @@
   border-bottom-color: var(--color-border-inverse);
 }
 
-@media (max-width: 1023px) {
+@media (min-width: 1024px) {
   .hero__inner {
-    justify-content: flex-start;
+    grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+    gap: var(--space-16);
   }
 
-  .hero__body {
-    width: 100%;
+  /*
+   * На десктопі рамка бере висоту, а не пропорцію: інакше при широкій
+   * колонці 4:3 розганяє секцію вище за стелю.
+   */
+  .hero__frame {
+    aspect-ratio: auto;
+    height: calc(var(--hero-height) - var(--hero-inset) * 2);
   }
 }
 </style>

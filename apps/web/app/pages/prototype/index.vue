@@ -3,7 +3,7 @@
 // Ритм: темний hero → світлі блоки → одна суцільна темна смуга → світлі
 // блоки → спліт із темною половиною → світлий підвал.
 // Секції не нумеруються: у референсу номерів немає.
-definePageMeta({ layout: "prototype", heroHeader: true });
+definePageMeta({ layout: "prototype" });
 useSeoMeta({ title: "Marmúr — свіжі букети у Львові" });
 </script>
 

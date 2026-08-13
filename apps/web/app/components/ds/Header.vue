@@ -2,9 +2,10 @@
 /**
  * Marmúr DS → components/navigation/Header.
  *
- * Тонка простора шапка: 76px, після 40px скролу стискається до 60px.
- * Над hero-фотографією — прозора, зі світлим текстом; далі — кольору ivory
- * із hairline знизу. Це єдиний фіксований елемент інтерфейсу.
+ * Тонка шапка кольору ivory із hairline знизу, 60px і на скролі теж:
+ * стану 76px більше немає, стискатись їй нема з чого. Над hero-фотографією
+ * (`transparent`) — прозора, зі світлим текстом. Це єдиний фіксований
+ * елемент інтерфейсу.
  *
  * Відхилення від оригіналу: замість пропа `mobile` — медіазапит, бо шапка
  * живе на реальному сайті, а не в статичному кіті.
@@ -32,7 +33,12 @@ const props = withDefaults(
 const emit = defineEmits<{ openCart: []; openMenu: [] }>();
 
 const { y } = useWindowScroll();
-const compact = computed(() => y.value > 40);
+/**
+ * Смуга-анонс над шапкою лежить у потоці й має власне місце. Фіксована
+ * шапка стоїть під нею і опускається рівно на ту частину смуги, яку ще
+ * видно, — тож перекриває вона лише hero, а не смугу.
+ */
+const scrollY = computed(() => `${Math.round(y.value)}px`);
 /** Прозора лише доки шапка ще над фото — далі вмикається тло */
 const overHero = computed(() => props.transparent && y.value < 40);
 const tone = computed<"default" | "inverse">(() => (overHero.value ? "inverse" : "default"));
@@ -42,10 +48,10 @@ const tone = computed<"default" | "inverse">(() => (overHero.value ? "inverse" :
   <header
     class="ds-header"
     :class="{
-      'ds-header--compact': compact,
       'ds-header--transparent': overHero,
       'ds-header--fixed': props.transparent,
     }"
+    :style="props.transparent ? { '--scroll-y': scrollY } : undefined"
   >
     <DsIconButton
       icon="menu"
@@ -55,7 +61,7 @@ const tone = computed<"default" | "inverse">(() => (overHero.value ? "inverse" :
       @click="emit('openMenu')"
     />
 
-    <DsWordmark :to="props.home" :size="compact ? 18 : 21" :tone="tone" />
+    <DsWordmark :to="props.home" :size="18" :tone="tone" />
 
     <nav class="ds-header__nav">
       <NuxtLink
@@ -101,7 +107,6 @@ const tone = computed<"default" | "inverse">(() => (overHero.value ? "inverse" :
   border-bottom: 1px solid var(--color-border);
   color: var(--color-foreground);
   transition:
-    height var(--duration) var(--ease-standard),
     background-color var(--duration) var(--ease-standard),
     border-color var(--duration) var(--ease-standard);
 }
@@ -109,10 +114,7 @@ const tone = computed<"default" | "inverse">(() => (overHero.value ? "inverse" :
 .ds-header--fixed {
   position: fixed;
   inset-inline: 0;
-}
-
-.ds-header--compact {
-  height: var(--header-height-scrolled);
+  top: max(0px, calc(var(--announce-height) - var(--scroll-y, 0px)));
 }
 
 .ds-header--transparent {

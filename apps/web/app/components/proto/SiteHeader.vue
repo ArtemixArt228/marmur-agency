@@ -1,12 +1,8 @@
 <script setup lang="ts">
 // PROTOTYPE — шапка сайту на DsHeader.
-// transparent=true (сторінки з hero) — шапка лежить поверх першого екрана
-// без тла; тло і hairline зʼявляються після 40px скролу.
+// Тло і hairline є від першого пікселя: прозорого режиму над hero немає,
+// тож `DsHeader` лишається липким і в потоці на всіх сторінках.
 import { protoNav } from "~/data/prototype";
-
-const props = withDefaults(defineProps<{ transparent?: boolean }>(), {
-  transparent: false,
-});
 
 const emit = defineEmits<{ openMenu: [] }>();
 
@@ -43,7 +39,6 @@ function onAccount() {
   <DsHeader
     :links="protoNav"
     :active="activePath"
-    :transparent="props.transparent"
     :cart-count="cartCount"
     :show-search="true"
     home="/prototype"

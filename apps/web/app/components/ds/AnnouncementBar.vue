@@ -4,48 +4,58 @@
  *
  * Смуга в потоці над шапкою — вона скролиться геть. Заборона на «плаваючі
  * промо-смуги» стосується липких елементів; ця такою не є.
+ *
+ * Стрічка їде. Обіцянок більше, ніж влазить у рядок, а лишити з них три —
+ * означає сховати решту. Лінок у смузі немає: це інформація, не навігація.
+ * Доріжка продубльована й прихована від читалок, щоб цикл не мав шва.
  */
-import { NuxtLink } from "#components";
+const props = withDefaults(
+  defineProps<{
+    items: string[];
+    /** Швидкість руху, px/с */
+    speed?: number;
+  }>(),
+  { speed: 55 },
+);
 
-interface BarLink {
-  label: string;
-  to: string;
-}
-
-const props = defineProps<{
-  items: string[];
-  left?: BarLink;
-  right?: BarLink;
-}>();
+/**
+ * Тривалість циклу рахуємо з довжини тексту, а не з виміряної ширини DOM:
+ * так вона однакова на сервері й клієнті і смуга не смикається після
+ * гідратації. ~8.6px на символ капсового Manrope 12px з tracking, плюс
+ * проміжок навколо крапки-роздільника.
+ */
+const duration = computed(() => {
+  const glyphs = props.items.join("").length * 8.6;
+  const gaps = props.items.length * 56;
+  return Math.max(18, Math.round((glyphs + gaps) / props.speed));
+});
 </script>
 
 <template>
-  <div class="ds-announce">
-    <NuxtLink v-if="props.left" :to="props.left.to" class="ds-announce__side">
-      {{ props.left.label }}
-    </NuxtLink>
-
-    <p class="ds-announce__items">
-      <span v-for="(item, i) in props.items" :key="item" class="ds-announce__item">
-        <span v-if="i > 0" aria-hidden="true" class="ds-announce__dot">·</span>
-        {{ item }}
-      </span>
-    </p>
-
-    <NuxtLink v-if="props.right" :to="props.right.to" class="ds-announce__side">
-      {{ props.right.label }}
-    </NuxtLink>
-  </div>
+  <aside
+    class="ds-announce"
+    :style="{ '--announce-duration': `${duration}s` }"
+    aria-label="Умови замовлення й доставки"
+  >
+    <div class="ds-announce__viewport">
+      <p
+        v-for="track in 2"
+        :key="track"
+        class="ds-announce__track"
+        :aria-hidden="track === 2 ? 'true' : undefined"
+      >
+        <span v-for="item in props.items" :key="item" class="ds-announce__item">
+          {{ item }}
+          <span aria-hidden="true" class="ds-announce__dot">·</span>
+        </span>
+      </p>
+    </div>
+  </aside>
 </template>
 
 <style scoped>
 .ds-announce {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: var(--space-6);
-  min-height: 32px;
-  padding-inline: var(--gutter);
+  height: var(--announce-height);
   background: var(--color-background-dark);
   color: var(--color-foreground-inverse);
   font: var(--type-meta);
@@ -54,49 +64,69 @@ const props = defineProps<{
   letter-spacing: var(--tracking-meta);
 }
 
-.ds-announce__items {
-  grid-column: 2;
+.ds-announce__viewport {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--space-2);
-  text-align: center;
+  align-items: center;
+  height: 100%;
+  overflow: hidden;
+}
+
+/*
+ * `min-width: 100%` — щоб на широкому екрані доріжка не була вужчою за
+ * смугу: інакше в кінці циклу праворуч зʼявляється діра. Коли тексту менше,
+ * ніж місця, space-around розгортає його на всю ширину.
+ */
+.ds-announce__track {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-around;
+  min-width: 100%;
+  white-space: nowrap;
+  animation: ds-announce-run var(--announce-duration) linear infinite;
+}
+
+/* Наведення зупиняє стрічку — щоб рядок можна було дочитати */
+.ds-announce:hover .ds-announce__track {
+  animation-play-state: paused;
+}
+
+.ds-announce__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding-left: var(--space-6);
 }
 
 .ds-announce__dot {
-  margin-right: var(--space-2);
   opacity: 0.5;
 }
 
-.ds-announce__side {
-  color: var(--color-foreground-inverse);
-  text-decoration: none;
-  opacity: 0.78;
-  white-space: nowrap;
-}
-
-.ds-announce__side:last-child {
-  grid-column: 3;
-  justify-self: end;
-}
-
-.ds-announce__side:hover {
-  opacity: 1;
-  text-decoration: none;
-}
-
-/* На вузьких екранах лишаються самі обіцянки */
-@media (max-width: 900px) {
-  .ds-announce {
-    grid-template-columns: 1fr;
+@keyframes ds-announce-run {
+  from {
+    transform: translateX(0);
   }
 
-  .ds-announce__side {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/*
+ * Без руху смуга лишається звичайним рядком: копію ховаємо, а те, що не
+ * влізло, можна прогорнути.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .ds-announce__viewport {
+    overflow-x: auto;
+  }
+
+  .ds-announce__track {
+    animation: none;
+  }
+
+  .ds-announce__track[aria-hidden="true"] {
     display: none;
-  }
-
-  .ds-announce__items {
-    grid-column: 1;
   }
 }
 </style>
