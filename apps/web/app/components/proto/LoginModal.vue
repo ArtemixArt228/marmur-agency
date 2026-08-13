@@ -39,7 +39,7 @@ function confirmCode() {
     <template #body>
       <div v-if="step === 'phone'" class="proto-login__step">
         <p class="ds-small ds-muted">
-          Паролів немає. Введіть номер — надішлемо СМС із кодом входу.
+          Паролів немає. Введіть номер, і ми надішлемо СМС із кодом входу.
         </p>
         <DsInput
           v-model="phone"

@@ -99,10 +99,8 @@ function pay(kind: "card" | "applepay") {
     <DsSectionHeading eyebrow="Замовлення" title="Оформлення" />
 
     <div v-if="items.length === 0" class="checkout__empty">
-      <p class="ds-body ds-muted">Кошик порожній — почніть із каталогу.</p>
-      <DsButton variant="premium" to="/prototype/catalog" icon-right="arrow-right">
-        До каталогу
-      </DsButton>
+      <p class="ds-body ds-muted">Кошик порожній. Почніть із каталогу.</p>
+      <DsButton variant="premium" to="/prototype/catalog"> До каталогу </DsButton>
     </div>
 
     <div v-else class="ds-split ds-split-aside checkout__body">
@@ -114,9 +112,8 @@ function pay(kind: "card" | "applepay") {
           <p v-if="!isLoggedIn" class="ds-small checkout__hint">
             Постійний клієнт?
             <button type="button" class="checkout__link" @click="isLoginOpen = true">
-              Увійдіть за номером телефону
-            </button>
-            — і ціни перерахуються з вашою знижкою.
+              Увійдіть за номером телефону</button
+            >, і ціни перерахуються з вашою знижкою.
           </p>
 
           <div class="checkout__pair">
@@ -170,7 +167,7 @@ function pay(kind: "card" | "applepay") {
             <label class="checkout__check">
               <input v-model="surprise" type="checkbox" />
               <span>
-                <span class="ds-small">Сюрприз — не дзвонити отримувачу заздалегідь</span>
+                <span class="ds-small">Сюрприз: не дзвонимо отримувачу заздалегідь</span>
                 <span class="ds-small ds-subtle">Час і адресу узгодимо тільки з вами</span>
               </span>
             </label>
@@ -203,10 +200,10 @@ function pay(kind: "card" | "applepay") {
           </div>
 
           <p v-if="!allAvailableToday" class="ds-small checkout__notice">
-            У кошику є букет «на завтра» — доставимо все разом завтра.
+            У кошику є букет «на завтра», тому доставимо все разом завтра.
           </p>
           <p v-else-if="!isBeforeCutoff" class="ds-small checkout__notice">
-            Після {{ protoDelivery.cutoffHour }}:00 приймаємо на завтра — привеземо з самого ранку.
+            Після {{ protoDelivery.cutoffHour }}:00 приймаємо на завтра і привеземо з самого ранку.
           </p>
 
           <div class="checkout__when">
@@ -234,7 +231,7 @@ function pay(kind: "card" | "applepay") {
               :options="
                 protoDelivery.zones.map((z) => ({
                   value: z.id,
-                  label: `${z.label} — ${formatUah(z.price)}`,
+                  label: `${z.label} · ${formatUah(z.price)}`,
                 }))
               "
             />
@@ -295,7 +292,7 @@ function pay(kind: "card" | "applepay") {
         </div>
 
         <p class="ds-small ds-subtle checkout__disclaimer">
-          Оплата — імітація для прототипу. Якщо букета раптом не стане, флорист запропонує заміну
+          Оплата тут імітована, це прототип. Якщо букета раптом не стане, флорист запропонує заміну
           або миттєве повернення коштів.
         </p>
       </aside>
@@ -456,8 +453,8 @@ function pay(kind: "card" | "applepay") {
 }
 
 .checkout__total-value {
-  font: var(--type-h3);
-  font-size: 26px;
+  font: var(--type-mono-lg);
+  font-variant-numeric: tabular-nums;
 }
 
 .checkout__pay {

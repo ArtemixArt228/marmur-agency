@@ -14,15 +14,15 @@ const { formatUah } = usePrototypeShop();
     <DsSectionHeading
       eyebrow="Сервіс"
       title="Доставка"
-      lede="Привеземо букет у зручне вам часове вікно — або чекатимемо вас у майстерні."
+      lede="Привеземо букет у зручне вам часове вікно. Або чекатимемо вас у майстерні."
     />
 
     <section class="delivery__block">
-      <p class="ds-meta ds-subtle">01 — Коли встигаємо сьогодні</p>
+      <p class="ds-meta ds-subtle">01 · Коли встигаємо сьогодні</p>
       <p class="ds-body ds-muted delivery__text">
         Замовлення до
-        <span class="delivery__strong">{{ protoDelivery.cutoffHour }}:00</span> — доставка того ж
-        дня. Пізніше — привеземо завтра, з першим вікном.
+        <span class="delivery__strong">{{ protoDelivery.cutoffHour }}:00</span> привеземо того ж
+        дня. Пізніше приймаємо на завтра, з першим вікном.
       </p>
       <p class="ds-small ds-subtle delivery__windows">
         Часові вікна: {{ protoDelivery.windows.join(" · ") }}
@@ -30,7 +30,7 @@ const { formatUah } = usePrototypeShop();
     </section>
 
     <section class="delivery__block">
-      <p class="ds-meta ds-subtle">02 — Зони й тарифи</p>
+      <p class="ds-meta ds-subtle">02 · Зони й тарифи</p>
       <ul class="delivery__list">
         <li v-for="z in protoDelivery.zones" :key="z.id" class="delivery__row">
           <span class="ds-body">{{ z.label }}</span>
@@ -48,25 +48,23 @@ const { formatUah } = usePrototypeShop();
     </section>
 
     <section class="delivery__block">
-      <p class="ds-meta ds-subtle">03 — Самовивіз</p>
+      <p class="ds-meta ds-subtle">03 · Самовивіз</p>
       <p class="ds-body ds-muted delivery__text">
         {{ protoDelivery.pickup.address }} · {{ protoDelivery.pickup.hours }}
       </p>
     </section>
 
     <section class="delivery__block">
-      <p class="ds-meta ds-subtle">04 — Якщо щось піде не так</p>
+      <p class="ds-meta ds-subtle">04 · Якщо щось піде не так</p>
       <p class="ds-body ds-muted delivery__text">
         Квіти живі: якщо саме вашого букета раптом не стане, флорист одразу зателефонує і запропонує
-        заміну тієї ж або більшої вартості — або миттєво повернемо оплату. Сюрпризи не зриваємо: з
+        заміну тієї ж або більшої вартості. Або миттєво повернемо оплату. Сюрпризи не зриваємо: з
         отримувачем нічого не узгоджуємо без вашої згоди.
       </p>
     </section>
 
     <div class="delivery__cta">
-      <DsButton variant="premium" to="/prototype/catalog" icon-right="arrow-right">
-        Переглянути колекцію
-      </DsButton>
+      <DsButton variant="premium" to="/prototype/catalog"> Переглянути колекцію </DsButton>
     </div>
   </div>
 </template>

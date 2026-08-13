@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // PROTOTYPE — каталог: товарні категорії + сервісні розділи (за заявкою).
 import {
+  protoBudgets,
   protoCategoryLabels,
   protoGiftSubcategories,
   protoProducts,
@@ -36,15 +37,56 @@ const active = computed(() => {
 
 const activeService = computed(() => protoServices.find((s) => s.id === active.value));
 
-function setCategory(key: string) {
-  router.replace({ query: key === "all" ? {} : { category: key } });
+const activeBudget = computed(() => {
+  const b = String(route.query.budget ?? "all");
+  return protoBudgets.some((x) => x.key === b) ? b : "all";
+});
+
+const activeQuery = computed(() => String(route.query.q ?? "").trim());
+
+/**
+ * Три осі фільтра складають query цілком, тому кожен сетер мусить
+ * переписати дві інші — інакше зміна категорії стирала б пошук.
+ * Значення «all» і порожній запит просто не потрапляють в URL.
+ */
+function buildQuery(next: Partial<{ category: string; budget: string; q: string }>) {
+  const category = next.category ?? active.value;
+  const budget = next.budget ?? activeBudget.value;
+  const q = next.q ?? activeQuery.value;
+
+  const query: Record<string, string> = {};
+  if (category !== "all") query.category = category;
+  if (budget !== "all") query.budget = budget;
+  if (q !== "") query.q = q;
+  return query;
 }
 
-const visible = computed(() =>
-  protoProducts
+function setCategory(key: string) {
+  router.replace({ query: buildQuery({ category: key }) });
+}
+
+function setBudget(key: string) {
+  router.replace({ query: buildQuery({ budget: key }) });
+}
+
+function clearQuery() {
+  router.replace({ query: buildQuery({ q: "" }) });
+}
+
+const visible = computed(() => {
+  const budget = protoBudgets.find((b) => b.key === activeBudget.value) ?? protoBudgets[0]!;
+  const q = activeQuery.value.toLowerCase();
+  return protoProducts
     .filter((p) => active.value === "all" || p.category === active.value)
-    .sort((a, b) => Number(b.available) - Number(a.available)),
-);
+    .filter((p) => budget.test(p.price))
+    .filter(
+      (p) =>
+        q === "" ||
+        p.name.toLowerCase().includes(q) ||
+        (p.composition ?? []).some((c) => c.toLowerCase().includes(q)),
+    )
+    .sort((a, b) => Number(b.available) - Number(a.available));
+});
 </script>
 
 <template>
@@ -54,8 +96,8 @@ const visible = computed(() =>
       eyebrow="Асортимент дня"
       :lede="
         active === 'gift'
-          ? `${protoGiftSubcategories.join(' · ')} — усе, що доповнює квіти.`
-          : `Позиції з міткою «на завтра» сьогодні вже розібрали — завтра вранці вони знову в майстерні. Решта — на ${todayWord}.`
+          ? `${protoGiftSubcategories.join(' · ')}. Усе, що доповнює квіти.`
+          : `Позиції з міткою «на завтра» сьогодні вже розібрали, завтра вранці вони знову будуть у майстерні. Решта доступна на ${todayWord}.`
       "
     />
 
@@ -66,6 +108,13 @@ const visible = computed(() =>
       :count="activeService ? undefined : `${visible.length} позицій`"
       @update:model-value="setCategory"
     />
+
+    <p v-if="activeQuery" class="catalog__query ds-small">
+      За запитом «{{ activeQuery }}»: {{ visible.length }}
+      <button type="button" class="catalog__query-clear ds-meta" @click="clearQuery">
+        скинути
+      </button>
+    </p>
 
     <nav class="catalog__services">
       <span class="ds-meta ds-subtle">За заявкою</span>
@@ -87,7 +136,7 @@ const visible = computed(() =>
       <h2 class="ds-h2">{{ activeService.label }}</h2>
       <p class="ds-body ds-muted catalog__service-text">{{ activeService.text }}</p>
       <p class="ds-small ds-subtle catalog__service-note">
-        Тут немає кошика — залиште заявку, і флорист звʼяжеться з вами особисто.
+        Тут немає кошика. Залиште заявку, і флорист звʼяжеться з вами особисто.
       </p>
       <DsButton class="catalog__service-cta" variant="premium" to="/prototype/school">
         Залишити заявку
@@ -106,6 +155,25 @@ const visible = computed(() =>
 <style scoped>
 .catalog__filters {
   margin-top: var(--space-16);
+}
+
+.catalog__budgets {
+  margin-top: var(--space-4);
+}
+
+.catalog__query {
+  margin-top: var(--space-8);
+  color: var(--color-foreground-muted);
+}
+
+.catalog__query-clear {
+  margin-left: var(--space-4);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--color-foreground);
+  border-bottom: 1px solid var(--color-border-strong);
 }
 
 .catalog__services {

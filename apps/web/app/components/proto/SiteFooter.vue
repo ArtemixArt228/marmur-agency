@@ -5,14 +5,17 @@ import { protoDelivery } from "~/data/prototype";
 
 <template>
   <DsFooter
-    note="Квіткова майстерня у Львові. Збираємо букети щоранку — з тих квітів, які самі поставили б удома."
+    note="Квіткова майстерня у Львові. Збираємо букети щоранку з тих квітів, які самі поставили б удома."
     :social="{ label: 'Instagram', href: 'https://instagram.com/marmur.flowers' }"
     legal="Прототип для обговорення дизайну"
+    newsletter
     :columns="[
       {
         title: 'Магазин',
         links: [
           { label: 'Каталог', to: '/prototype/catalog' },
+          { label: 'Мікс-букети', to: '/prototype/catalog?category=mix' },
+          { label: 'Моно-букети', to: '/prototype/catalog?category=mono' },
           { label: 'Подарунки', to: '/prototype/catalog?category=gift' },
           { label: 'Букет нареченої', to: '/prototype/catalog?category=bride' },
         ],
@@ -23,6 +26,7 @@ import { protoDelivery } from "~/data/prototype";
           { label: 'Про нас', to: '/prototype/about' },
           { label: 'Навчання', to: '/prototype/school' },
           { label: 'Декор свята', to: '/prototype/catalog?category=decor' },
+          { label: 'Квіткова підписка', to: '/prototype/catalog?category=flower-sub' },
         ],
       },
       {
@@ -38,11 +42,11 @@ import { protoDelivery } from "~/data/prototype";
     <template #contacts>
       <dl class="proto-footer__contacts">
         <dt class="ds-meta">Майстерня</dt>
-        <dd>{{ protoDelivery.pickup.address }}</dd>
-        <dd>{{ protoDelivery.pickup.hours }}</dd>
+        <dd class="ds-mono">{{ protoDelivery.pickup.address }}</dd>
+        <dd class="ds-mono">{{ protoDelivery.pickup.hours }}</dd>
         <dt class="ds-meta">Звʼязок</dt>
-        <dd>{{ protoDelivery.phone }}</dd>
-        <dd>{{ protoDelivery.instagram }}</dd>
+        <dd class="ds-mono">{{ protoDelivery.phone }}</dd>
+        <dd class="ds-mono">{{ protoDelivery.instagram }}</dd>
       </dl>
     </template>
   </DsFooter>
@@ -54,11 +58,11 @@ import { protoDelivery } from "~/data/prototype";
   display: grid;
   gap: var(--space-1);
   font: var(--type-small);
-  color: var(--color-foreground-subtle);
+  color: var(--color-foreground-muted);
 }
 
 .proto-footer__contacts dt {
-  color: var(--color-foreground-inverse);
+  color: var(--color-foreground);
   margin-top: var(--space-4);
 }
 

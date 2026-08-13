@@ -2,9 +2,10 @@
 /**
  * Marmúr DS → components/navigation/Header.
  *
- * Тонка простора шапка: 76px, після 40px скролу стискається до 60px.
- * Над hero-фотографією — прозора, зі світлим текстом; далі — кольору ivory
- * із hairline знизу. Це єдиний фіксований елемент інтерфейсу.
+ * Тонка шапка кольору ivory із hairline знизу, 60px і на скролі теж:
+ * стану 76px більше немає, стискатись їй нема з чого. Над hero-фотографією
+ * (`transparent`) — прозора, зі світлим текстом. Це єдиний фіксований
+ * елемент інтерфейсу.
  *
  * Відхилення від оригіналу: замість пропа `mobile` — медіазапит, бо шапка
  * живе на реальному сайті, а не в статичному кіті.
@@ -23,16 +24,21 @@ const props = withDefaults(
     transparent?: boolean;
     cartCount?: number;
     home?: string;
-    /** Вимикається, доки на сайті немає справжнього пошуку */
+    /** Рендерить слот #search між навігацією й утилітами */
     showSearch?: boolean;
   }>(),
   { links: () => [], cartCount: 0, home: "/", showSearch: true },
 );
 
-const emit = defineEmits<{ openCart: []; openMenu: []; search: [] }>();
+const emit = defineEmits<{ openCart: []; openMenu: [] }>();
 
 const { y } = useWindowScroll();
-const compact = computed(() => y.value > 40);
+/**
+ * Смуга-анонс над шапкою лежить у потоці й має власне місце. Фіксована
+ * шапка стоїть під нею і опускається рівно на ту частину смуги, яку ще
+ * видно, — тож перекриває вона лише hero, а не смугу.
+ */
+const scrollY = computed(() => `${Math.round(y.value)}px`);
 /** Прозора лише доки шапка ще над фото — далі вмикається тло */
 const overHero = computed(() => props.transparent && y.value < 40);
 const tone = computed<"default" | "inverse">(() => (overHero.value ? "inverse" : "default"));
@@ -42,10 +48,10 @@ const tone = computed<"default" | "inverse">(() => (overHero.value ? "inverse" :
   <header
     class="ds-header"
     :class="{
-      'ds-header--compact': compact,
       'ds-header--transparent': overHero,
       'ds-header--fixed': props.transparent,
     }"
+    :style="props.transparent ? { '--scroll-y': scrollY } : undefined"
   >
     <DsIconButton
       icon="menu"
@@ -54,6 +60,8 @@ const tone = computed<"default" | "inverse">(() => (overHero.value ? "inverse" :
       class="ds-header__burger"
       @click="emit('openMenu')"
     />
+
+    <DsWordmark :to="props.home" :size="18" :tone="tone" />
 
     <nav class="ds-header__nav">
       <NuxtLink
@@ -67,18 +75,12 @@ const tone = computed<"default" | "inverse">(() => (overHero.value ? "inverse" :
       </NuxtLink>
     </nav>
 
-    <DsWordmark :to="props.home" :size="compact ? 18 : 21" :tone="tone" />
+    <div v-if="props.showSearch" class="ds-header__search">
+      <slot name="search" :tone="tone" />
+    </div>
 
     <div class="ds-header__utilities">
       <slot name="utilities" :tone="tone" />
-      <DsIconButton
-        v-if="props.showSearch"
-        icon="search"
-        label="Пошук"
-        :tone="tone"
-        class="ds-header__search"
-        @click="emit('search')"
-      />
       <DsIconButton
         icon="shopping-bag"
         label="Кошик"
@@ -105,7 +107,6 @@ const tone = computed<"default" | "inverse">(() => (overHero.value ? "inverse" :
   border-bottom: 1px solid var(--color-border);
   color: var(--color-foreground);
   transition:
-    height var(--duration) var(--ease-standard),
     background-color var(--duration) var(--ease-standard),
     border-color var(--duration) var(--ease-standard);
 }
@@ -113,10 +114,7 @@ const tone = computed<"default" | "inverse">(() => (overHero.value ? "inverse" :
 .ds-header--fixed {
   position: fixed;
   inset-inline: 0;
-}
-
-.ds-header--compact {
-  height: var(--header-height-scrolled);
+  top: max(0px, calc(var(--announce-height) - var(--scroll-y, 0px)));
 }
 
 .ds-header--transparent {
@@ -128,14 +126,13 @@ const tone = computed<"default" | "inverse">(() => (overHero.value ? "inverse" :
 .ds-header__nav {
   display: none;
   gap: var(--space-8);
-  flex: 1;
 }
 
 .ds-header__link {
   padding: var(--space-2) 0;
-  font: var(--type-meta);
+  font: var(--type-label-sm);
   text-transform: uppercase;
-  letter-spacing: var(--tracking-meta);
+  letter-spacing: var(--tracking-label-sm);
   color: inherit;
   text-decoration: none;
   white-space: nowrap;
@@ -157,7 +154,14 @@ const tone = computed<"default" | "inverse">(() => (overHero.value ? "inverse" :
 }
 
 .ds-header__burger {
+  display: none;
   margin-left: -12px;
+}
+
+@media (max-width: 1023px) {
+  .ds-header__burger {
+    display: inline-flex;
+  }
 }
 
 .ds-header__utilities {
@@ -170,11 +174,17 @@ const tone = computed<"default" | "inverse">(() => (overHero.value ? "inverse" :
 
 .ds-header__search {
   display: none;
+  min-width: 0;
 }
 
 @media (min-width: 1024px) {
-  .ds-header__burger {
-    display: none;
+  /*
+   * Сітка Peak: знак ліворуч, навігація, поле пошуку, утиліти праворуч.
+   * Пошук забирає вільне місце — саме він тримає центр шапки.
+   */
+  .ds-header {
+    display: grid;
+    grid-template-columns: auto auto 1fr auto;
   }
 
   .ds-header__nav {
@@ -182,11 +192,9 @@ const tone = computed<"default" | "inverse">(() => (overHero.value ? "inverse" :
   }
 
   .ds-header__search {
-    display: inline-flex;
-  }
-
-  .ds-header__utilities {
-    flex: 1;
+    display: block;
+    max-width: 360px;
+    justify-self: end;
   }
 }
 </style>

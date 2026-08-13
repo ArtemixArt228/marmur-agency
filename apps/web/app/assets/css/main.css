@@ -18,8 +18,10 @@
 @import "./design-system/utilities.css";
 
 @theme static {
-  --font-sans: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  /* Моношрифта в системі немає — лишаємо системний для утиліти font-mono */
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /*
    * Рампи для Nuxt UI. Опорні точки — сім кольорів дизайн-системи:
@@ -48,6 +50,37 @@
   --color-sand-800: #4a413a;
   --color-sand-900: #261b17;
   --color-sand-950: #171513;
+}
+
+/*
+ * Токени рівня застосунку — не з Claude Design, тому й не в ./design-system.
+ * Висоту смуги-анонса знають двоє: сама смуга і фіксована шапка, яка на цю
+ * висоту опущена, доки смугу не проскролили.
+ */
+:root {
+  --announce-height: 36px;
+
+  /*
+   * Шапка компактна завжди — стану 76px більше немає. Аліас, а не нове
+   * значення: усі, хто рахує відступ від шапки (липкі колонки, меню,
+   * scroll-margin якорів), мають бачити ту саму висоту.
+   */
+  --header-height: var(--header-height-scrolled);
+
+  /*
+   * Ритм секцій — один на всі блоки: 24px на мобільному, 64px від планшета.
+   * Claude Design тримає clamp(80–128) / clamp(120–200); тут обидва токени
+   * зведені до однієї сходинки, щоб сусідні секції не розходились.
+   */
+  --space-section: var(--space-6);
+  --space-section-lg: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --space-section: var(--space-16);
+    --space-section-lg: var(--space-16);
+  }
 }
 
 /*

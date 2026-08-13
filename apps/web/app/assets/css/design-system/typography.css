@@ -1,40 +1,64 @@
-/* Імпортовано з Claude Design → «Marmúr — Design System». */
+/*
+ * Імпортовано з Claude Design → «Marmúr — Design System».
+ * Не редагувати вручну: значення мають лишатись дзеркалом дизайн-системи.
+ *
+ * Дві гарнітури: сериф — тільки display/H1/H2, Manrope — усе інше.
+ * Капсовий шар і мікродані (лічильники, ціни, години) власних гарнітур
+ * не мають: там той самий Manrope, цифри — табличні (font-variant-numeric).
+ */
 :root {
-  --font-serif-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-  --font-sans: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-label: var(--font-sans);
+  --font-numeric: var(--font-sans);
 
-  --text-display: clamp(42px, 6.2vw, 96px);
-  --text-h1: clamp(36px, 4.6vw, 64px);
-  --text-h2: clamp(30px, 3.4vw, 48px);
-  --text-h3: clamp(24px, 2.2vw, 32px);
+  --text-display: clamp(44px, 6.4vw, 80px);
+  --text-h1: clamp(36px, 4.4vw, 64px);
+  --text-h2: clamp(30px, 3.2vw, 48px);
+  --text-h3: clamp(20px, 1.8vw, 24px);
   --text-body-lg: 18px;
-  --text-body: 17px;
+  --text-body: 16px;
   --text-small: 14px;
-  --text-meta: 12px;
+  --text-label: 16px;
+  --text-label-sm: 14px;
+  --text-meta: 14px;
+  --text-mono: 14px;
+  --text-mono-lg: clamp(18px, 1.6vw, 24px);
+  --text-product: 16px;
 
-  --leading-display: 1.02;
+  --leading-display: 1.1;
   --leading-heading: 1.1;
-  --leading-body: 1.6;
-  --leading-tight: 1.35;
+  --leading-body: 1.5;
+  --leading-tight: 1.2;
+  --leading-label: 1.1;
 
   --tracking-display: -0.025em;
-  --tracking-heading: -0.015em;
+  --tracking-heading: -0.025em;
   --tracking-body: 0;
-  --tracking-meta: 0.14em;
+  --tracking-label: 0.057em;
+  --tracking-label-sm: 0.038em;
+  --tracking-meta: 0.038em;
   --tracking-wordmark: 0.22em;
 
-  --weight-light: 300;
   --weight-regular: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
+  --weight-bold: 700;
 
   /* Composed roles */
-  --type-display: var(--weight-light) var(--text-display) / var(--leading-display)
-    var(--font-serif-display);
-  --type-h1: var(--weight-light) var(--text-h1) / var(--leading-heading) var(--font-serif-display);
-  --type-h2: var(--weight-light) var(--text-h2) / var(--leading-heading) var(--font-serif-display);
-  --type-h3: var(--weight-regular) var(--text-h3) / var(--leading-tight) var(--font-serif-display);
+  --type-display: var(--weight-regular) var(--text-display) / var(--leading-display)
+    var(--font-display);
+  --type-display-italic: italic var(--weight-regular) var(--text-display) / var(--leading-display)
+    var(--font-display);
+  --type-h1: var(--weight-regular) var(--text-h1) / var(--leading-heading) var(--font-display);
+  --type-h2: var(--weight-regular) var(--text-h2) / var(--leading-heading) var(--font-display);
+  --type-h3: var(--weight-bold) var(--text-h3) / var(--leading-tight) var(--font-label);
   --type-body: var(--weight-regular) var(--text-body) / var(--leading-body) var(--font-sans);
   --type-small: var(--weight-regular) var(--text-small) / 1.5 var(--font-sans);
-  --type-meta: var(--weight-medium) var(--text-meta) / 1.4 var(--font-sans);
+  --type-label: var(--weight-bold) var(--text-label) / var(--leading-label) var(--font-label);
+  --type-label-sm: var(--weight-bold) var(--text-label-sm) / var(--leading-label) var(--font-label);
+  --type-meta: var(--weight-bold) var(--text-meta) / 1.4 var(--font-label);
+  --type-mono: var(--weight-regular) var(--text-mono) / 1 var(--font-numeric);
+  --type-mono-lg: var(--weight-regular) var(--text-mono-lg) / 1.1 var(--font-numeric);
+  --type-product: var(--weight-regular) var(--text-product) / 1.35 var(--font-sans);
 }

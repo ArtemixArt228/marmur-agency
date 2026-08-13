@@ -1,5 +1,9 @@
 <script setup lang="ts">
 /** Marmúr DS → components/commerce/CartLine. Рядок кошика й міні-кошика. */
+// Імпорт замість resolveComponent('NuxtLink') — інакше мініатюра з `to`
+// рендериться як мертвий тег <NuxtLink> і не веде на сторінку товару.
+import { NuxtLink } from "#components";
+
 const props = withDefaults(
   defineProps<{
     name: string;
@@ -23,11 +27,7 @@ const emit = defineEmits<{
 
 <template>
   <div class="ds-cart-line">
-    <component
-      :is="props.to ? resolveComponent('NuxtLink') : 'div'"
-      :to="props.to"
-      class="ds-cart-line__media"
-    >
+    <component :is="props.to ? NuxtLink : 'div'" :to="props.to" class="ds-cart-line__media">
       <DsEditorialImage
         :src="props.image"
         :alt="props.name"
@@ -84,7 +84,7 @@ const emit = defineEmits<{
 }
 
 .ds-cart-line__name {
-  font: var(--type-h3);
+  font: var(--type-product);
   font-size: 19px;
 }
 
