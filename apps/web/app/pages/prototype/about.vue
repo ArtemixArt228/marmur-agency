@@ -76,9 +76,7 @@ const values = [
       </div>
 
       <div class="about__cta">
-        <DsButton variant="premium" to="/prototype/catalog" icon-right="arrow-right">
-          Переглянути колекцію
-        </DsButton>
+        <DsButton variant="premium" to="/prototype/catalog"> Переглянути колекцію </DsButton>
         <DsButton variant="secondary" to="/prototype/school"> Навчання флористики </DsButton>
       </div>
     </section>

@@ -27,7 +27,7 @@ const dsVariant = computed(
     :variant="dsVariant"
     :full-width="props.block"
     :disabled="props.disabled"
-    :icon-right="props.noArrow ? undefined : 'arrow-right'"
+    :icon-right="props.noArrow ? false : undefined"
   >
     <slot />
   </DsButton>

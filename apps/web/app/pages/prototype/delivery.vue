@@ -64,9 +64,7 @@ const { formatUah } = usePrototypeShop();
     </section>
 
     <div class="delivery__cta">
-      <DsButton variant="premium" to="/prototype/catalog" icon-right="arrow-right">
-        Переглянути колекцію
-      </DsButton>
+      <DsButton variant="premium" to="/prototype/catalog"> Переглянути колекцію </DsButton>
     </div>
   </div>
 </template>

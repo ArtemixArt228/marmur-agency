@@ -13,9 +13,10 @@ useSeoMeta({ title: "Marmúr — свіжі букети у Львові" });
     <ProtoHomeProductRail />
     <ProtoHomeCategoryMosaic />
     <ProtoHomeFeatured />
-    <ProtoHomeWhatsNew />
-    <ProtoHomeValues />
     <ProtoHomeManifesto />
-    <ProtoHomeVisit />
+
+    <!-- <ProtoHomeWhatsNew /> -->
+    <ProtoHomeValues />
+    <!-- <ProtoHomeVisit /> -->
   </div>
 </template>

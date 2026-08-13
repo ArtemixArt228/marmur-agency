@@ -35,9 +35,6 @@
           <DsButton variant="inverse" size="lg" to="/prototype/catalog">
             Переглянути колекцію
           </DsButton>
-          <DsButton variant="ghost" size="lg" to="/prototype/about" class="hero__ghost">
-            Наша історія
-          </DsButton>
         </div>
       </div>
     </div>

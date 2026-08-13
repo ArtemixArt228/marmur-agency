@@ -100,9 +100,7 @@ function pay(kind: "card" | "applepay") {
 
     <div v-if="items.length === 0" class="checkout__empty">
       <p class="ds-body ds-muted">Кошик порожній. Почніть із каталогу.</p>
-      <DsButton variant="premium" to="/prototype/catalog" icon-right="arrow-right">
-        До каталогу
-      </DsButton>
+      <DsButton variant="premium" to="/prototype/catalog"> До каталогу </DsButton>
     </div>
 
     <div v-else class="ds-split ds-split-aside checkout__body">

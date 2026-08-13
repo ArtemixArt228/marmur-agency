@@ -47,7 +47,7 @@ const dayWord = computed(() => (order.value?.day === "today" ? "сьогодні
     </p>
 
     <div class="thanks__actions">
-      <DsButton variant="premium" to="/prototype" icon-right="arrow-right"> На головну </DsButton>
+      <DsButton variant="premium" to="/prototype"> На головну </DsButton>
       <DsButton variant="secondary" to="/prototype/catalog"> Переглянути колекцію </DsButton>
     </div>
   </div>

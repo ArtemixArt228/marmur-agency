@@ -2,8 +2,12 @@
 /**
  * Marmúr DS → components/core/Button.
  *
- * Прямокутна (2px), великі літери, 0.14em tracking. Наведення не змінює
- * розмір; натиск — 0.995 і 0.84 прозорості, без спалахів кольору.
+ * Прямокутна (2px), великі літери. Драбина висот 32 / 40 / 48 — рівний крок
+ * 8px без вертикального padding, тому однорядкова кнопка дорівнює висоті
+ * рівно, а не «принаймні».
+ *
+ * Стрілка стоїть за замовчуванням і на ховері їде на 3px, як у `DsTextLink`.
+ * Наведення не змінює розмір; натиск — 0.995 і 0.84 прозорості.
  */
 // Імпорт замість resolveComponent('NuxtLink') — інакше кнопка з `to`
 // рендериться як мертвий тег <NuxtLink> і нікуди не веде.
@@ -17,11 +21,17 @@ const props = withDefaults(
     type?: "button" | "submit";
     fullWidth?: boolean;
     disabled?: boolean;
-    /** Lucide-слаг стрілки/іконки праворуч від тексту */
-    iconRight?: string;
+    /** Lucide-слаг іконки праворуч від тексту. `false` прибирає стрілку. */
+    iconRight?: string | false;
   }>(),
-  { variant: "primary", size: "md", type: "button" },
+  { variant: "primary", size: "md", type: "button", iconRight: "arrow-right" },
 );
+
+// Окремий computed, а не `v-if` просто на пропі: інакше `:name` лишається
+// `string | false` і vue-tsc сварить біндинг.
+const arrow = computed(() => (props.iconRight === false ? undefined : props.iconRight));
+
+const arrowSize = computed(() => ({ sm: 12, md: 14, lg: 16 })[props.size]);
 </script>
 
 <template>
@@ -39,7 +49,7 @@ const props = withDefaults(
     ]"
   >
     <slot />
-    <DsIcon v-if="props.iconRight" :name="props.iconRight" :size="14" />
+    <DsIcon v-if="arrow" :name="arrow" :size="arrowSize" class="ds-button__arrow" />
   </component>
 </template>
 
@@ -48,7 +58,7 @@ const props = withDefaults(
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-3);
+  gap: var(--space-2);
   font-family: var(--font-label);
   font-weight: var(--weight-bold);
   letter-spacing: var(--tracking-label-sm);
@@ -71,6 +81,15 @@ const props = withDefaults(
   opacity: var(--press-opacity);
 }
 
+/* 3px, а не 2px як у плитки: кнопка — «текст + стрілка» в рядку, як лінк. */
+.ds-button__arrow {
+  transition: transform var(--duration) var(--ease-standard);
+}
+
+.ds-button:hover:not(.ds-button--disabled) .ds-button__arrow {
+  transform: translateX(3px);
+}
+
 .ds-button--block {
   width: 100%;
 }
@@ -84,24 +103,25 @@ const props = withDefaults(
   transform: none;
 }
 
-/* Розміри */
+/* Розміри — вертикального padding немає, висоту тримає min-height. */
 .ds-button--sm {
-  padding: 8px 18px;
+  padding: 0 14px;
   font-size: var(--text-label-sm);
-  min-height: 36px;
+  min-height: 32px;
 }
 
 .ds-button--md {
-  padding: 12px 24px;
+  padding: 0 20px;
   font-size: var(--text-label-sm);
-  min-height: 44px;
+  min-height: 40px;
 }
 
 .ds-button--lg {
-  padding: 16px 32px;
+  gap: var(--space-3);
+  padding: 0 28px;
   font-size: var(--text-label);
   letter-spacing: var(--tracking-label);
-  min-height: 56px;
+  min-height: 48px;
 }
 
 /* Варіанти */
@@ -143,7 +163,9 @@ const props = withDefaults(
 }
 
 .ds-button--quiet:hover:not(.ds-button--disabled) {
-  border-color: var(--color-border-strong);
+  background: var(--color-foreground);
+  color: var(--color-background);
+  border-color: var(--color-foreground);
   opacity: 1;
 }
 
@@ -153,8 +175,12 @@ const props = withDefaults(
   border: 1px solid var(--color-background);
 }
 
+/* Інверсія в дусі OverlayTile: плашка розчиняється в контур. */
 .ds-button--inverse:hover:not(.ds-button--disabled) {
-  opacity: var(--hover-opacity);
+  background: transparent;
+  color: var(--color-foreground-inverse);
+  border-color: var(--color-foreground-inverse);
+  opacity: 1;
 }
 
 .ds-button--ghost {
@@ -167,7 +193,12 @@ const props = withDefaults(
   border-radius: 0;
 }
 
+/*
+ * currentColor, а не --color-foreground: HeroSplit перефарбовує цю кнопку в
+ * ivory для темного героя, і жорсткий обсидіан перебив би його специфічністю.
+ */
 .ds-button--ghost:hover:not(.ds-button--disabled) {
-  opacity: var(--hover-opacity);
+  border-bottom-color: currentColor;
+  opacity: 1;
 }
 </style>

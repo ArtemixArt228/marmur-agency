@@ -59,7 +59,7 @@ const email = ref("");
         </p>
         <form class="ds-footer__news-form" @submit.prevent>
           <DsInput v-model="email" type="email" label="Пошта" placeholder="Пошта" />
-          <DsButton type="submit" size="sm">Підписатись</DsButton>
+          <DsButton type="submit">Підписатись</DsButton>
         </form>
       </div>
     </div>

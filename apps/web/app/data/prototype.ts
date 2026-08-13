@@ -48,7 +48,8 @@ export const protoProducts: ProtoProduct[] = [
     category: "mix",
     photo: "/prototype/bouquet-peach.jpg",
     available: true,
-    description: "Ніжний букет у персикових тонах: кущові троянди, еустома та багато повітря.",
+    description:
+      "Ніжний букет у персикових тонах: кущові троянди, еустома та багато повітря.",
     composition: ["Кущова троянда", "Еустома", "Евкаліпт"],
   },
   {
@@ -78,7 +79,8 @@ export const protoProducts: ProtoProduct[] = [
     category: "mono",
     photo: "/prototype/bouquet-lily.jpg",
     available: true,
-    description: "Ароматні східні лілії, які розкриваються вдома протягом тижня.",
+    description:
+      "Ароматні східні лілії, які розкриваються вдома протягом тижня.",
     composition: ["Лілія орієнтальна"],
   },
   {
@@ -108,7 +110,8 @@ export const protoProducts: ProtoProduct[] = [
     category: "mono",
     photo: "/prototype/marmur-2.jpg",
     available: true,
-    description: "Оберемок білих півоній у фірмовому пакуванні. Фото з нашого поля.",
+    description:
+      "Оберемок білих півоній у фірмовому пакуванні. Фото з нашого поля.",
     composition: ["Півонія"],
   },
   {
@@ -174,7 +177,6 @@ export const protoProducts: ProtoProduct[] = [
 /** Навігація: спільна для шапки, повноекранного меню й підвалу */
 export const protoNav = [
   { label: "Каталог", to: "/prototype/catalog" },
-  { label: "Подарунки", to: "/prototype/catalog?category=gift" },
   { label: "Про нас", to: "/prototype/about" },
   { label: "Навчання", to: "/prototype/school" },
   { label: "Доставка", to: "/prototype/delivery" },
@@ -266,7 +268,11 @@ export interface ProtoBudget {
 export const protoBudgets: ProtoBudget[] = [
   { key: "all", label: "Усі", test: () => true },
   { key: "lt1000", label: "до 1 000 ₴", test: (p) => p < 1000 },
-  { key: "1000-1500", label: "1 000–1 500 ₴", test: (p) => p >= 1000 && p <= 1500 },
+  {
+    key: "1000-1500",
+    label: "1 000–1 500 ₴",
+    test: (p) => p >= 1000 && p <= 1500,
+  },
   { key: "gt1500", label: "понад 1 500 ₴", test: (p) => p > 1500 },
 ];
 

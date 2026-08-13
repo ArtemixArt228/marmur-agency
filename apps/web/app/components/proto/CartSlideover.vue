@@ -23,12 +23,7 @@ const items = computed(() =>
     <template #body>
       <div v-if="items.length === 0" class="proto-cart__empty">
         <p class="ds-body ds-muted">Кошик поки порожній.</p>
-        <DsButton
-          variant="secondary"
-          to="/prototype/catalog"
-          icon-right="arrow-right"
-          @click="isCartOpen = false"
-        >
+        <DsButton variant="secondary" to="/prototype/catalog" @click="isCartOpen = false">
           Переглянути каталог
         </DsButton>
       </div>

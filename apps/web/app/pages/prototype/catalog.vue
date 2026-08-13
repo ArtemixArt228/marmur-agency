@@ -109,14 +109,6 @@ const visible = computed(() => {
       @update:model-value="setCategory"
     />
 
-    <DsFilterBar
-      v-if="!activeService"
-      class="catalog__budgets"
-      :filters="protoBudgets.map((b) => ({ key: b.key, label: b.label }))"
-      :model-value="activeBudget"
-      @update:model-value="setBudget"
-    />
-
     <p v-if="activeQuery" class="catalog__query ds-small">
       За запитом «{{ activeQuery }}»: {{ visible.length }}
       <button type="button" class="catalog__query-clear ds-meta" @click="clearQuery">

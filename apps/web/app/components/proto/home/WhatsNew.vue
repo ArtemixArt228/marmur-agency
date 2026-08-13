@@ -17,9 +17,7 @@
             завтра вже може зникнути з каталогу.
           </p>
           <div class="whats-new__action">
-            <DsButton variant="inverse" size="lg" to="/prototype/catalog" icon-right="arrow-right">
-              Дивитись нове
-            </DsButton>
+            <DsButton variant="inverse" size="lg" to="/prototype/catalog"> Дивитись нове </DsButton>
           </div>
         </div>
       </DsReveal>
